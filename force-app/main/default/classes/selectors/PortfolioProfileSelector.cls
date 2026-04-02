@@ -9,8 +9,8 @@ public with sharing class PortfolioProfileSelector {
         return profile;
     }
 
-    public static List<Portfolio_Profile__c> getPortfolioProfilesWithSkills(String id) {
-        List<Portfolio_Profile__c> profiles = [
+    public static Portfolio_Profile__c getPortfolioProfilesWithSkills(String id) {
+        Portfolio_Profile__c profile = [
             SELECT Id, Name, Title__c, Bio__c, Profile_Image_Url__c, LinkedIn_Url__c, Github_Url__c, Email__c, 
                    Phone__c, Whatsapp_Phone__c, Years_Experience__c,
                    (SELECT Id, Name, Category__c, Level__c, Display_Order__c FROM Portfolio_Skills__r)
@@ -18,6 +18,6 @@ public with sharing class PortfolioProfileSelector {
             WHERE Id = :id
         ];
 
-        return profiles;
+        return profile;
     }
 }

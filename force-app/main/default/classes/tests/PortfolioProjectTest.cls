@@ -25,6 +25,15 @@ public class PortfolioProjectTest {
             Thumbnail_URL__c = 'https://example.com/project.jpg'
         );
         insert project;
+
+        Project_Skill__c skill = new Project_Skill__c(
+            Portfolio_Project__c = project.Id,
+            Portfolio_profile__c = profile.Id,
+            Name = 'Apex',
+            category__c = 'Backend',
+            level__c = 'Advanced'
+        );
+        insert skill;
     }
 
     @isTest
@@ -41,5 +50,9 @@ public class PortfolioProjectTest {
         System.assertEquals(true, projects[0].isFeatured, 'Unexpected isFeatured from getPortfolioProjects');
         System.assertEquals('https://example.com/demo', projects[0].liveDemoUrl, 'Unexpected liveDemoUrl from getPortfolioProjects');
         System.assertEquals('https://example.com/project.jpg', projects[0].thumbnailUrl, 'Unexpected thumbnailUrl from getPortfolioProjects');
+        System.assertEquals(1, projects[0].skills.size(), 'Expected exactly one skill for the project');
+        System.assertEquals('Apex', projects[0].skills[0].name, 'Unexpected skill name from getPortfolioProjects');
+        System.assertEquals('Backend', projects[0].skills[0].category, 'Unexpected skill category from getPortfolioProjects');
+        System.assertEquals('Advanced', projects[0].skills[0].level, 'Unexpected skill level from getPortfolioProjects');
     }
 }

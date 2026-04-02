@@ -17,7 +17,6 @@ public with sharing class PortfolioProfileDTO {
         @AuraEnabled public String level;
         @AuraEnabled public Integer order;
 
-        // Add a constructor to match usage in domain code
         public PortfolioSkillDTO(String name, String category, String level, Integer order) {
             this.name = name;
             this.category = category;

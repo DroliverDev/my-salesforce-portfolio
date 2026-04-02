@@ -1,6 +1,6 @@
 public with sharing class PortfolioProfileService {
     public static PortfolioProfileDTO getProfile(String Id) {
-        Portfolio_Profile__c record = PortfolioProfileSelector.getPortfolioProfile(Id);
+        Portfolio_Profile__c record = PortfolioProfileSelector.getPortfolioProfilesWithSkills(Id);
         return PortfolioProfileDomain.toDTO(record);
     }
 }

@@ -3,7 +3,6 @@ private class PortfolioProfileTest {
 
     @TestSetup
     static void setupData() {
-        // Create baseline Portfolio Profile test record
         Portfolio_Profile__c profile = new Portfolio_Profile__c();
         profile.Name = 'Test Profile';
         profile.Title__c = 'Senior Developer';
@@ -16,6 +15,13 @@ private class PortfolioProfileTest {
         profile.Whatsapp_Phone__c = '11999997777';
         profile.Career_Start_Date__c = Date.newInstance(2018, 1, 1);
         insert profile;
+
+        Portfolio_Skill__c skill1 = new Portfolio_Skill__c();
+        skill1.Portfolio_Profile__c = profile.Id;
+        skill1.category__c = 'Backend';
+        skill1.Name = 'Apex';
+        skill1.Level__c = 'Advanced';
+        insert skill1;
     }
 
     @IsTest
@@ -40,6 +46,8 @@ private class PortfolioProfileTest {
         System.assertNotEquals(null, profile, 'Expected a Portfolio_Profile__c record to be returned');
         System.assertEquals('Test Profile', profile.Name, 'Unexpected Name from getPortfolioProfile');
         System.assertEquals('Senior Developer', profile.title, 'Unexpected Title from getPortfolioProfile');
-
+        System.assertEquals('Backend', profile.skills[0].category, 'Unexpected Skill Category from getPortfolioProfile');
+        System.assertEquals('Apex', profile.skills[0].name, 'Unexpected Skill Name from getPortfolioProfile');
+        System.assertEquals('Advanced', profile.skills[0].level, 'Unexpected Skill Level from getPortfolioProfile');
     }
 }
