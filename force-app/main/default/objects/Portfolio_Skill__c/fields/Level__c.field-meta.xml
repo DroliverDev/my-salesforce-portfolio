@@ -20,6 +20,11 @@
                 <label>Intermediate</label>
             </value>
             <value>
+                <fullName>Upper Intermediate</fullName>
+                <default>false</default>
+                <label>Upper Intermediate</label>
+            </value>
+            <value>
                 <fullName>Advanced</fullName>
                 <default>false</default>
                 <label>Advanced</label>

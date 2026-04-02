@@ -29,6 +29,11 @@
                 <default>false</default>
                 <label>Salesforce</label>
             </value>
+            <value>
+                <fullName>Language</fullName>
+                <default>false</default>
+                <label>Language</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>
