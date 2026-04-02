@@ -9,8 +9,24 @@ public with sharing class PortfolioProfileDTO {
     @AuraEnabled public String phone;
     @AuraEnabled public String wppPhone;
     @AuraEnabled public Double YearOfExperience;
+    @AuraEnabled public List<PortfolioSkillDTO> skills;
 
-    public PortfolioProfileDTO(String name, String title, String bio, String profileImageUrl, String linkedInUrl, String githubUrl, String email, String phone, String wppPhone, Double YearOfExperience) {
+    public class PortfolioSkillDTO {
+        @AuraEnabled public String name;
+        @AuraEnabled public String category;
+        @AuraEnabled public String level;
+        @AuraEnabled public Integer order;
+
+        // Add a constructor to match usage in domain code
+        public PortfolioSkillDTO(String name, String category, String level, Integer order) {
+            this.name = name;
+            this.category = category;
+            this.level = level;
+            this.order = order;
+        }
+    }
+
+    public PortfolioProfileDTO(String name, String title, String bio, String profileImageUrl, String linkedInUrl, String githubUrl, String email, String phone, String wppPhone, Double YearOfExperience, List<PortfolioSkillDTO> skills) {
         this.name = name;
         this.title = title;
         this.bio = bio;
@@ -21,5 +37,6 @@ public with sharing class PortfolioProfileDTO {
         this.phone = phone;
         this.wppPhone = wppPhone;
         this.YearOfExperience = YearOfExperience;
+        this.skills = skills;
     }
 }
