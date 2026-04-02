@@ -17,19 +17,16 @@
         <div class="slds-grid slds-wrap slds-align_absolute-center hero">
             <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 image-col">
                 <div class="profile-image" role="img" aria-label="Profile image">
-                    <img src={profileImageUrl} alt="Profile image" />
+                    <img src={imageUrl} alt="Profile image" />
                 </div>
             </div>
 
             <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-3 hero-body">
-                <h1 class="name">Daniele Oliveira</h1>
+                <h1 class="name">{name}</h1>
                 <p class="bio">{bio}</p>
 
                 <div class="socials slds-m-vertical_small">
                     <lightning-icon icon-name="utility:share" alternative-text="share" size="small"></lightning-icon>
-                    <a href={twitterUrl} target="_blank" class="slds-m-left_x-small" title="Twitter">
-                        <lightning-icon icon-name="utility:touch_action" size="small"></lightning-icon>
-                    </a>
                     <a href={linkedinUrl} target="_blank" class="slds-m-left_x-small" title="LinkedIn">
                         <lightning-icon icon-name="utility:people" size="small"></lightning-icon>
                     </a>

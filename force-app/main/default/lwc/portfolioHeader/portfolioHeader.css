@@ -6,7 +6,6 @@
 .portfolio-header {
     background: var(--primary-gradient);
     color: white;
-    border-radius: 0 0 1rem 1rem;
 }
 
 .nav {

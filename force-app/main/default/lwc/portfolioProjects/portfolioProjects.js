@@ -1,6 +1,7 @@
 import { LightningElement, api } from 'lwc';
 
 export default class PortfolioProjects extends LightningElement {
+    @api recordId;
     @api projects;
 
     get internalProjects() {

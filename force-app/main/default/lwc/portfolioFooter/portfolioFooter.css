@@ -6,8 +6,6 @@
     background: var(--footer-bg);
     color: #cbd5e1;
     padding: 1rem;
-    border-top-left-radius: 1rem;
-    border-top-right-radius: 1rem;
 }
 
 .portfolio-footer p { margin: 0; }

@@ -1,12 +1,41 @@
-import { LightningElement, api } from 'lwc';
+import { LightningElement, api, wire } from 'lwc';
+import { getRecord } from 'lightning/uiRecordApi';
+import PROFILE_IMAGE_FIELD from '@salesforce/schema/Portfolio_Profile__c.Profile_Image_URL__c';
+import NAME_FIELD from '@salesforce/schema/Portfolio_Profile__c.Name';
+import EMAIL_FIELD from '@salesforce/schema/Portfolio_Profile__c.Email__c';
+import BIO_FIELD from '@salesforce/schema/Portfolio_Profile__c.Bio__c';
+import LINKEDIN_FIELD from '@salesforce/schema/Portfolio_Profile__c.LinkedIn_URL__c';
+import GITHUB_FIELD from '@salesforce/schema/Portfolio_Profile__c.GitHub_URL__c';
+import SALESFORCE_FIELD from '@salesforce/schema/Portfolio_Profile__c.Trailhead_URL__c';
 
 export default class PortfolioHeader extends LightningElement {
-    @api profileImageUrl = '/resource/default_profile.png';
-    @api bio = 'Desenvolvedora Salesforce e full-stack, especializada em LWC e soluções modernas.';
-    @api twitterUrl = 'https://twitter.com/';
-    @api linkedinUrl = 'https://www.linkedin.com/';
-    @api githubUrl = 'https://github.com/';
-    @api salesforceUrl = 'https://trailblazer.me/';
+    @api recordId;
+    @api bio;
+    @api name;
+    @api linkedinUrl;
+    @api githubUrl;
+    @api salesforceUrl;
+    @api imageUrl;
+    @api email;
+
+    @wire(getRecord, {
+        recordId: '$recordId',
+        fields: [PROFILE_IMAGE_FIELD, NAME_FIELD, EMAIL_FIELD, BIO_FIELD, LINKEDIN_FIELD, GITHUB_FIELD, SALESFORCE_FIELD]
+    })
+
+    wiredProfile({ error, data }) {
+        if (data) {
+            this.imageUrl = data?.fields?.Profile_Image_URL__c?.value;
+            this.name = data?.fields?.Name?.value;
+            this.email = data?.fields?.Email__c?.value;
+            this.bio = data?.fields?.Bio__c?.value;
+            this.linkedinUrl = data?.fields?.LinkedIn_URL__c?.value;
+            this.githubUrl = data?.fields?.GitHub_URL__c?.value;
+            this.salesforceUrl = data?.fields?.Trailhead_URL__c?.value;
+        } else if (error) {
+            console.error(error);
+        }
+    }
 
     handleContactClick() {
         // emit custom event so parent can handle navigation, or fallback to mailto
