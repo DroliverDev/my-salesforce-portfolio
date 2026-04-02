@@ -1,0 +1,50 @@
+<template>
+    <section class="portfolio-header slds-p-around_medium">
+        <div class="nav slds-grid slds-align_absolute-center slds-m-bottom_medium">
+            <div class="slds-col">
+                <button class="lang-toggle slds-button slds-button_neutral">EN / PT</button>
+            </div>
+            <div class="slds-col slds-align-end nav-links">
+                <nav class="slds-p-horizontal_small">
+                    <a href="#about" class="slds-m-right_small">Sobre</a>
+                    <a href="#services" class="slds-m-right_small">Serviços</a>
+                    <a href="#projects" class="slds-m-right_small">Portfólio</a>
+                    <a href="#contact">Contato</a>
+                </nav>
+            </div>
+        </div>
+
+        <div class="slds-grid slds-wrap slds-align_absolute-center hero">
+            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 image-col">
+                <div class="profile-image" role="img" aria-label="Profile image">
+                    <img src={profileImageUrl} alt="Profile image" />
+                </div>
+            </div>
+
+            <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-3 hero-body">
+                <h1 class="name">Daniele Oliveira</h1>
+                <p class="bio">{bio}</p>
+
+                <div class="socials slds-m-vertical_small">
+                    <lightning-icon icon-name="utility:share" alternative-text="share" size="small"></lightning-icon>
+                    <a href={twitterUrl} target="_blank" class="slds-m-left_x-small" title="Twitter">
+                        <lightning-icon icon-name="utility:touch_action" size="small"></lightning-icon>
+                    </a>
+                    <a href={linkedinUrl} target="_blank" class="slds-m-left_x-small" title="LinkedIn">
+                        <lightning-icon icon-name="utility:people" size="small"></lightning-icon>
+                    </a>
+                    <a href={githubUrl} target="_blank" class="slds-m-left_x-small" title="GitHub">
+                        <lightning-icon icon-name="utility:open" size="small"></lightning-icon>
+                    </a>
+                    <a href={salesforceUrl} target="_blank" class="slds-m-left_x-small" title="Salesforce">
+                        <lightning-icon icon-name="utility:platform" size="small"></lightning-icon>
+                    </a>
+                </div>
+
+                <div class="slds-m-top_medium">
+                    <button class="contact-button slds-button" onclick={handleContactClick}>Fale Comigo</button>
+                </div>
+            </div>
+        </div>
+    </section>
+</template>

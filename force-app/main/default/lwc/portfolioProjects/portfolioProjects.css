@@ -1,0 +1,7 @@
+:host {
+    --primary-blue: #2563eb;
+}
+
+.portfolio-projects .title { color: var(--primary-blue); font-weight: 700; }
+
+.project-grid { align-items: stretch; }

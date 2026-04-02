@@ -1,0 +1,21 @@
+<template>
+    <article class="project-card">
+        <div class="image-placeholder">
+            <template if:true={imageUrl}>
+                <img src={imageUrl} alt={projectName} />
+            </template>
+            <template if:false={imageUrl}>
+                <div class="placeholder"></div>
+            </template>
+        </div>
+
+        <div class="card-body">
+            <h3>{projectName}</h3>
+            <p class="desc">{description}</p>
+        </div>
+
+        <div class="card-footer">
+            <a class="code-button" href={codeUrl} target="_blank">Ver Código</a>
+        </div>
+    </article>
+</template>

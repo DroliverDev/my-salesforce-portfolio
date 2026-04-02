@@ -1,0 +1,13 @@
+<template>
+    <section id="projects" class="portfolio-projects slds-p-around_medium slds-text-align_center">
+        <h2 class="title">Projetos em Destaque</h2>
+
+        <div class="slds-grid slds-wrap slds-m-top_large project-grid">
+            <template for:each={internalProjects} for:item="proj">
+                <div key={proj.id} class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-p-around_small">
+                    <c-portfolio-project-card project-name={proj.name} description={proj.description} image-url={proj.imageUrl} code-url={proj.codeUrl}></c-portfolio-project-card>
+                </div>
+            </template>
+        </div>
+    </section>
+</template>
