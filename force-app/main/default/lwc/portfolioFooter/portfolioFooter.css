@@ -6,9 +6,20 @@
     background: var(--footer-bg);
     color: #cbd5e1;
     padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
 }
 
 .portfolio-footer p { margin: 0; }
+
+.portfolio-footer .socials {
+    margin-left: auto;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
 
 .portfolio-footer .socials a { color: #cbd5e1; }
 
