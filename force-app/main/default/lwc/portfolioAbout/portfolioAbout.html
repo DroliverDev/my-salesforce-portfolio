@@ -1,44 +1,19 @@
 <template>
     <section id="about" class="portfolio-about slds-p-around_medium slds-text-align_center">
-        <h2 class="title">Visão Geral de Habilidades</h2>
-        <p class="desc">Uma visão geral das principais habilidades técnicas e práticas.</p>
+        <h2 class="title">{title}</h2>
+        <p class="desc">{description}</p>
 
         <div class="slds-grid slds-wrap slds-m-top_large cards">
-            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-p-around_small">
-                <article class="skill-card">
-                    <h3>Frontend</h3>
-                    <ul>
-                        <li>HTML5</li>
-                        <li>CSS3 / SLDS</li>
-                        <li>JavaScript (ES6+)</li>
-                        <li>LWC</li>
-                    </ul>
-                </article>
-            </div>
-
-            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-p-around_small">
-                <article class="skill-card">
-                    <h3>Backend & Arquitetura</h3>
-                    <ul>
-                        <li>Node.js</li>
-                        <li>Database Modeling</li>
-                        <li>Auth</li>
-                        <li>Performance</li>
-                    </ul>
-                </article>
-            </div>
-
-            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-p-around_small">
-                <article class="skill-card">
-                    <h3>Processos & Outros</h3>
-                    <ul>
-                        <li>Git</li>
-                        <li>Agile</li>
-                        <li>Testing</li>
-                        <li>Problem Solving</li>
-                    </ul>
-                </article>
-            </div>
+            <template for:each={skillCategories} for:item="category">
+                <div key={category} class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-p-around_small">
+                    <article class="skill-card">
+                        <h3>{category}</h3>
+                        <ul>
+                            <!-- Skills will be populated here from related records -->
+                        </ul>
+                    </article>
+                </div>
+            </template>
         </div>
     </section>
 </template>
