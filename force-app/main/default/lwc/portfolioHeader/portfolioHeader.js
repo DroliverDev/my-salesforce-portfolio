@@ -7,6 +7,7 @@ import BIO_FIELD from '@salesforce/schema/Portfolio_Profile__c.Bio__c';
 import LINKEDIN_FIELD from '@salesforce/schema/Portfolio_Profile__c.LinkedIn_URL__c';
 import GITHUB_FIELD from '@salesforce/schema/Portfolio_Profile__c.GitHub_URL__c';
 import SALESFORCE_FIELD from '@salesforce/schema/Portfolio_Profile__c.Trailhead_URL__c';
+import MyProfileImage from '@salesforce/resourceUrl/MyProfileImage';
 
 export default class PortfolioHeader extends LightningElement {
     @api recordId;
@@ -15,7 +16,7 @@ export default class PortfolioHeader extends LightningElement {
     @api linkedinUrl;
     @api githubUrl;
     @api salesforceUrl;
-    @api imageUrl;
+    @api imageUrl = MyProfileImage;
     @api email;
 
     @wire(getRecord, {
@@ -25,7 +26,7 @@ export default class PortfolioHeader extends LightningElement {
 
     wiredProfile({ error, data }) {
         if (data) {
-            this.imageUrl = data?.fields?.Profile_Image_URL__c?.value;
+            //this.imageUrl = data?.fields?.Profile_Image_URL__c?.value;
             this.name = data?.fields?.Name?.value;
             this.email = data?.fields?.Email__c?.value;
             this.bio = data?.fields?.Bio__c?.value;
