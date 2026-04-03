@@ -3,6 +3,7 @@ import { LightningElement, api } from 'lwc';
 export default class PortfolioProjects extends LightningElement {
     @api recordId;
     @api projects;
+    @api title = 'Projetos em Destaque';
 
     get internalProjects() {
         // fallback example projects if none provided

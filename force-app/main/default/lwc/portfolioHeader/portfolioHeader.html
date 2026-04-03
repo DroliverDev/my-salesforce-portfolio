@@ -2,24 +2,19 @@
     <section class="portfolio-header slds-p-around_medium">
         <div class="nav slds-grid slds-m-bottom_medium">
             <div class="slds-col">
-                <button class="lang-toggle slds-button slds-button_neutral" aria-label="Language toggle: English and Portuguese">
+                <button class="lang-toggle slds-button slds-button_neutral" aria-label="Language toggle: English and Portuguese" onclick={handleLanguageToggle}>
                     <span class="lang-option">
-                        <img src={englishFlagUrl} alt="English" class="lang-flag" />
-                        <span>EN</span>
-                    </span>
-                    <span class="lang-separator">/</span>
-                    <span class="lang-option">
-                        <img src={portugueseFlagUrl} alt="Português" class="lang-flag" />
-                        <span>PT</span>
+                        <img src={currentLanguageFlagUrl} alt={currentLanguageAlt} class="lang-flag" />
+                        <span>{languageToggleLabel}</span>
                     </span>
                 </button>
             </div>
             <div class="slds-col slds-align-end nav-links">
                 <nav class="slds-p-horizontal_small">
-                    <a href="#about" class="slds-m-right_small">Sobre</a>
-                    <a href="#services" class="slds-m-right_small">Serviços</a>
-                    <a href="#projects" class="slds-m-right_small">Portfólio</a>
-                    <a href="#contact">Contato</a>
+                    <a href="#about" class="slds-m-right_small">{navLabels.about}</a>
+                    <a href="#services" class="slds-m-right_small">{navLabels.services}</a>
+                    <a href="#projects" class="slds-m-right_small">{navLabels.projects}</a>
+                    <a href="#contact">{navLabels.contact}</a>
                 </nav>
             </div>
         </div>

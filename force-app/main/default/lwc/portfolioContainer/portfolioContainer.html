@@ -1,8 +1,26 @@
 <template>
     <template lwc:if={stylesLoaded}>
-        <c-portfolio-header record-id={recordId}></c-portfolio-header>
-        <c-portfolio-about record-id={recordId}></c-portfolio-about>
-        <c-portfolio-projects record-id={recordId}></c-portfolio-projects>
-        <c-portfolio-contact record-id={recordId}></c-portfolio-contact>
+        <c-portfolio-header
+            record-id={recordId}
+            language={currentLanguage}
+            labels={headerLabels}
+            onlanguagechange={handleLanguageChange}>
+        </c-portfolio-header>
+        <c-portfolio-about
+            record-id={recordId}
+            title={aboutLabels.title}
+            description={aboutLabels.description}>
+        </c-portfolio-about>
+        <c-portfolio-projects
+            record-id={recordId}
+            title={projectLabels.title}>
+        </c-portfolio-projects>
+        <c-portfolio-contact
+            record-id={recordId}
+            title={contactLabels.title}
+            description={contactLabels.description}
+            button-label={contactLabels.emailButton}
+            email-subject={contactLabels.emailSubject}>
+        </c-portfolio-contact>
     </template>
 </template>

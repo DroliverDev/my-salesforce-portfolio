@@ -21,6 +21,8 @@ export default class PortfolioHeader extends LightningElement {
     @api imageUrl = MyProfileImage;
     @api email;
     @api whatsappPhone;
+    @api language = 'pt';
+    @api labels;
 
     get englishFlagUrl() {
         return `${flags}/flags/flag-us.svg`;
@@ -28,6 +30,27 @@ export default class PortfolioHeader extends LightningElement {
 
     get portugueseFlagUrl() {
         return `${flags}/flags/flag-br.svg`;
+    }
+
+    get currentLanguageFlagUrl() {
+        return this.language === 'pt' ? this.portugueseFlagUrl : this.englishFlagUrl;
+    }
+
+    get currentLanguageAlt() {
+        return this.language === 'pt' ? 'Português' : 'English';
+    }
+
+    get navLabels() {
+        return this.labels?.nav || {
+            about: 'Sobre',
+            services: 'Serviços',
+            projects: 'Portfólio',
+            contact: 'Contato'
+        };
+    }
+
+    get languageToggleLabel() {
+        return this.language === 'pt' ? 'PT / EN' : 'EN / PT';
     }
 
     @wire(getRecord, {
@@ -54,5 +77,14 @@ export default class PortfolioHeader extends LightningElement {
         // emit custom event so parent can handle navigation, or fallback to mailto
         this.dispatchEvent(new CustomEvent('contact'));
         window.location.href = 'mailto:hello@example.com';
+    }
+
+    handleLanguageToggle() {
+        const nextLanguage = this.language === 'pt' ? 'en' : 'pt';
+        this.dispatchEvent(
+            new CustomEvent('languagechange', {
+                detail: { language: nextLanguage }
+            })
+        );
     }
 }
