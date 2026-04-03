@@ -51,9 +51,16 @@ export default class PortfolioAbout extends LightningElement {
             skillMap[category].push(skill);
         });
 
-        // Sort skills within each category by order
+        // Sort skills within each category by level (greater to smaller)
         Object.keys(skillMap).forEach(category => {
-            skillMap[category].sort((a, b) => (a.order || 0) - (b.order || 0));
+            skillMap[category].sort((a, b) => {
+                const levelDiff = this.getLevelRank(b.level) - this.getLevelRank(a.level);
+                if (levelDiff !== 0) {
+                    return levelDiff;
+                }
+
+                return (a.order || 0) - (b.order || 0);
+            });
         });
 
         // Create array with category name and skills for template iteration
@@ -61,5 +68,23 @@ export default class PortfolioAbout extends LightningElement {
             name: category,
             skills: skillMap[category] || []
         }));
+    }
+
+    getLevelRank(level) {
+        const byLabel = {
+            beginner: 1,
+            intermediate: 2,
+            'upper intermediate': 3,
+            'upper-intermediate': 3,
+            advanced: 4
+        };
+
+        const normalized = String(level || '').trim().toLowerCase();
+        if (byLabel[normalized]) {
+            return byLabel[normalized];
+        }
+
+        const numeric = Number(level);
+        return Number.isNaN(numeric) ? 0 : numeric;
     }
 }
