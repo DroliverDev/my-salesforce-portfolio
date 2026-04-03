@@ -11,3 +11,7 @@
 .portfolio-footer p { margin: 0; }
 
 .portfolio-footer .socials a { color: #cbd5e1; }
+
+.portfolio-footer .socials i {
+    font-size: 1.1rem;
+}

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 18" role="img" aria-labelledby="title desc">
+  <title>Brazil flag</title>
+  <desc>Flag of Brazil</desc>
+  <rect width="24" height="18" fill="#009b3a"/>
+  <polygon points="12,2 21,9 12,16 3,9" fill="#ffdf00"/>
+  <circle cx="12" cy="9" r="3.2" fill="#002776"/>
+</svg>

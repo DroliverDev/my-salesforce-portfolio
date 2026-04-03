@@ -1,6 +1,8 @@
 <template>
-    <c-portfolio-header record-id={recordId}></c-portfolio-header>
-    <c-portfolio-about record-id={recordId}></c-portfolio-about>
-    <c-portfolio-projects record-id={recordId}></c-portfolio-projects>
-    <c-portfolio-contact record-id={recordId}></c-portfolio-contact>
+    <template lwc:if={stylesLoaded}>
+        <c-portfolio-header record-id={recordId}></c-portfolio-header>
+        <c-portfolio-about record-id={recordId}></c-portfolio-about>
+        <c-portfolio-projects record-id={recordId}></c-portfolio-projects>
+        <c-portfolio-contact record-id={recordId}></c-portfolio-contact>
+    </template>
 </template>

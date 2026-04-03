@@ -1,8 +1,18 @@
 <template>
     <section class="portfolio-header slds-p-around_medium">
-        <div class="nav slds-grid slds-align_absolute-center slds-m-bottom_medium">
+        <div class="nav slds-grid slds-m-bottom_medium">
             <div class="slds-col">
-                <button class="lang-toggle slds-button slds-button_neutral">EN / PT</button>
+                <button class="lang-toggle slds-button slds-button_neutral" aria-label="Language toggle: English and Portuguese">
+                    <span class="lang-option">
+                        <img src={englishFlagUrl} alt="English" class="lang-flag" />
+                        <span>EN</span>
+                    </span>
+                    <span class="lang-separator">/</span>
+                    <span class="lang-option">
+                        <img src={portugueseFlagUrl} alt="Português" class="lang-flag" />
+                        <span>PT</span>
+                    </span>
+                </button>
             </div>
             <div class="slds-col slds-align-end nav-links">
                 <nav class="slds-p-horizontal_small">
@@ -26,21 +36,23 @@
                 <p class="bio">{bio}</p>
 
                 <div class="socials slds-m-vertical_small">
-                    <lightning-icon icon-name="utility:share" alternative-text="share" size="small"></lightning-icon>
+                    <a href={whatsappPhone} target="_blank" class="slds-m-left_x-small" title="Whatsapp">
+                        <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+                    </a>
                     <a href={linkedinUrl} target="_blank" class="slds-m-left_x-small" title="LinkedIn">
-                        <lightning-icon icon-name="utility:people" size="small"></lightning-icon>
+                        <i class="fa-brands fa-linkedin" aria-hidden="true"></i>
                     </a>
                     <a href={githubUrl} target="_blank" class="slds-m-left_x-small" title="GitHub">
-                        <lightning-icon icon-name="utility:open" size="small"></lightning-icon>
+                        <i class="fa-brands fa-github" aria-hidden="true"></i>
                     </a>
                     <a href={salesforceUrl} target="_blank" class="slds-m-left_x-small" title="Salesforce">
-                        <lightning-icon icon-name="utility:platform" size="small"></lightning-icon>
+                        <i class="fa-brands fa-salesforce" aria-hidden="true"></i>
                     </a>
                 </div>
 
-                <div class="slds-m-top_medium">
+                <!-- <div class="slds-m-top_medium">
                     <button class="contact-button slds-button" onclick={handleContactClick}>Fale Comigo</button>
-                </div>
+                </div> -->
             </div>
         </div>
     </section>

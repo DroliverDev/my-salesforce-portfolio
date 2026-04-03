@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 18" role="img" aria-labelledby="title desc">
+  <title>United States flag</title>
+  <desc>Flag of the United States of America</desc>
+  <rect width="24" height="18" fill="#fff"/>
+  <g fill="#b22234">
+    <rect y="0" width="24" height="1.385"/>
+    <rect y="2.77" width="24" height="1.385"/>
+    <rect y="5.54" width="24" height="1.385"/>
+    <rect y="8.31" width="24" height="1.385"/>
+    <rect y="11.08" width="24" height="1.385"/>
+    <rect y="13.85" width="24" height="1.385"/>
+    <rect y="16.615" width="24" height="1.385"/>
+  </g>
+  <rect width="10.4" height="9.7" fill="#3c3b6e"/>
+</svg>
