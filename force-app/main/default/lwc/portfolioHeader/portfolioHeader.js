@@ -1,15 +1,7 @@
 import { LightningElement, api, wire } from 'lwc';
-import { getRecord } from 'lightning/uiRecordApi';
-import PROFILE_IMAGE_FIELD from '@salesforce/schema/Portfolio_Profile__c.Profile_Image_URL__c';
-import NAME_FIELD from '@salesforce/schema/Portfolio_Profile__c.Name';
-import EMAIL_FIELD from '@salesforce/schema/Portfolio_Profile__c.Email__c';
-import BIO_FIELD from '@salesforce/schema/Portfolio_Profile__c.Bio__c';
-import LINKEDIN_FIELD from '@salesforce/schema/Portfolio_Profile__c.LinkedIn_URL__c';
-import GITHUB_FIELD from '@salesforce/schema/Portfolio_Profile__c.GitHub_URL__c';
-import SALESFORCE_FIELD from '@salesforce/schema/Portfolio_Profile__c.Trailhead_URL__c';
-import WHATSAPP_FIELD from '@salesforce/schema/Portfolio_Profile__c.WhatsApp_Phone__c';
 import MyProfileImage from '@salesforce/resourceUrl/MyProfileImage';
 import flags from '@salesforce/resourceUrl/flags';
+import getProfile from '@salesforce/apex/PortfolioProfileController.getProfile';
 
 export default class PortfolioHeader extends LightningElement {
     @api recordId;
@@ -23,6 +15,7 @@ export default class PortfolioHeader extends LightningElement {
     @api whatsappPhone;
     @api language = 'pt';
     @api labels;
+    isLoading = false;
 
     get englishFlagUrl() {
         return `${flags}/flags/flag-us.svg`;
@@ -53,24 +46,34 @@ export default class PortfolioHeader extends LightningElement {
         return this.language === 'pt' ? 'PT / EN' : 'EN / PT';
     }
 
-    @wire(getRecord, {
-        recordId: '$recordId',
-        fields: [PROFILE_IMAGE_FIELD, NAME_FIELD, EMAIL_FIELD, BIO_FIELD, LINKEDIN_FIELD, GITHUB_FIELD, SALESFORCE_FIELD, WHATSAPP_FIELD]
-    })
+    get whatsappUrl() {
+        const digitsOnly = String(this.whatsappPhone || '').replace(/\D/g, '');
+        return digitsOnly ? `https://wa.me/${digitsOnly}` : null;
+    }
 
+    @wire(getProfile, { Id: '$recordId' })
     wiredProfile({ error, data }) {
+        this.isLoading = true;
         if (data) {
-            //this.imageUrl = data?.fields?.Profile_Image_URL__c?.value;
-            this.name = data?.fields?.Name?.value;
-            this.email = data?.fields?.Email__c?.value;
-            this.bio = data?.fields?.Bio__c?.value;
-            this.linkedinUrl = data?.fields?.LinkedIn_URL__c?.value;
-            this.githubUrl = data?.fields?.GitHub_URL__c?.value;
-            this.salesforceUrl = data?.fields?.Trailhead_URL__c?.value;
-            this.whatsappPhone = data?.fields?.WhatsApp_Phone__c?.value;
+            console.log('Data:', data);
+            this.name = data.name;
+            this.bio = data.bio;
+            this.imageUrl = MyProfileImage;
+            this.linkedinUrl = data.linkedInUrl;
+            this.githubUrl = data.githubUrl;
+            this.salesforceUrl = data.trailheadUrl;
+            this.email = data.email;
+            this.whatsappPhone = data.wppPhone;
+            console.log('wpp: ', data.wppPhone);
+            this.isLoading = false;
         } else if (error) {
-            console.error(error);
+            console.error('Error loading profile:', error);
+            this.isLoading = false;
         }
+    }
+
+    stop(event) {
+        event.stopPropagation();
     }
 
     handleContactClick() {

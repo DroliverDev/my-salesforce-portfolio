@@ -5,6 +5,7 @@ public with sharing class PortfolioProfileDTO {
     @AuraEnabled public String profileImageUrl;
     @AuraEnabled public String linkedInUrl;
     @AuraEnabled public String githubUrl;
+    @AuraEnabled public String trailheadUrl;
     @AuraEnabled public String email;
     @AuraEnabled public String phone;
     @AuraEnabled public String wppPhone;
