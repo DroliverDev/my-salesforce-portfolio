@@ -2,6 +2,6 @@
     --primary-blue: #2563eb;
 }
 
-.portfolio-projects .title { color: var(--primary-blue); font-weight: 700; }
+.portfolio-projects .title { font-size: 1.5rem; color: var(--primary-blue); font-weight: 700; }
 
 .project-grid { align-items: stretch; }

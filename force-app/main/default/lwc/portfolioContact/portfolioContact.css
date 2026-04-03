@@ -2,6 +2,12 @@
     --primary-blue: #2563eb;
 }
 
+.portfolio-contact h2 {
+    font-size: 1.5rem;
+    color: var(--primary-blue);
+    font-weight: 700;
+}
+
 .mailto-button {
     background: var(--primary-blue);
     color: white;
