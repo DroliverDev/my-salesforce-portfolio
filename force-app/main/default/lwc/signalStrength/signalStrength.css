@@ -1,0 +1,48 @@
+:host {
+    --signal-filled-color: #1589ee;
+    --signal-empty-color: #e2e8f0;
+    --signal-bar-width: 8px;
+    --signal-bar-gap: 4px;
+    --signal-transition: 0.3s ease-in-out;
+}
+
+.signal-strength-container {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bars-wrapper {
+    display: flex;
+    align-items: flex-end;
+    gap: var(--signal-bar-gap);
+}
+
+.bar {
+    width: var(--signal-bar-width);
+    border-radius: 2px;
+    background-color: var(--signal-empty-color);
+    transition: background-color var(--signal-transition);
+    min-width: var(--signal-bar-width);
+}
+
+.bar.h1 { height: 10px; }
+.bar.h2 { height: 16px; }
+.bar.h3 { height: 22px; }
+.bar.h4 { height: 28px; }
+
+.bar.filled.beginner {
+    background-color: #ef4444;
+}
+
+.bar.filled.intermediate {
+    background-color: #f97316;
+}
+
+.bar.filled.upper-intermediate {
+    background-color: #eab308;
+}
+
+.bar.filled.advanced {
+    background-color: #22c55e;
+}
