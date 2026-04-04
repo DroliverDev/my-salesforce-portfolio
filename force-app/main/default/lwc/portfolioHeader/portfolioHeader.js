@@ -90,4 +90,14 @@ export default class PortfolioHeader extends LightningElement {
             })
         );
     }
+
+    handleNavClick(event) {
+        event.preventDefault();
+        const section = event.currentTarget?.dataset?.section;
+        this.dispatchEvent(
+            new CustomEvent('navscroll', {
+                detail: { section }
+            })
+        );
+    }
 }

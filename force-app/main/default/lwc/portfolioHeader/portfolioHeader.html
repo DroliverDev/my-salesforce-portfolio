@@ -11,10 +11,10 @@
             </div>
             <div class="slds-col slds-align-end nav-links">
                 <nav class="slds-p-horizontal_small">
-                    <a href="#about" class="slds-m-right_small">{navLabels.about}</a>
-                    <a href="#services" class="slds-m-right_small">{navLabels.services}</a>
-                    <a href="#projects" class="slds-m-right_small">{navLabels.projects}</a>
-                    <a href="#contact">{navLabels.contact}</a>
+                    <a href="#about" data-section="about" onclick={handleNavClick} class="slds-m-right_small">{navLabels.about}</a>
+                    <a href="#services" data-section="services" onclick={handleNavClick} class="slds-m-right_small">{navLabels.services}</a>
+                    <a href="#projects" data-section="projects" onclick={handleNavClick} class="slds-m-right_small">{navLabels.projects}</a>
+                    <a href="#contact" data-section="contact" onclick={handleNavClick}>{navLabels.contact}</a>
                 </nav>
             </div>
         </div>
