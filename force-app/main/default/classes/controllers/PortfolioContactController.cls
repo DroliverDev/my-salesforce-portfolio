@@ -1,4 +1,4 @@
-public with sharing class PortfolioContactController {
+public without sharing class PortfolioContactController {
     @AuraEnabled
     public static void saveContact(Map<String, Object> payload) {
         try {

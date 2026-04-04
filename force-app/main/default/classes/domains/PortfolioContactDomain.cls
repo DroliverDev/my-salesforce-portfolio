@@ -1,4 +1,4 @@
-public with sharing class PortfolioContactDomain {
+public without sharing  class PortfolioContactDomain {
     public static Portfolio_Contact__c createContact(PortfolioContactDTO contactDTO) {
         Portfolio_Contact__c contactRecord = new Portfolio_Contact__c();
         contactRecord.Contact_Name__c = contactDTO.name;

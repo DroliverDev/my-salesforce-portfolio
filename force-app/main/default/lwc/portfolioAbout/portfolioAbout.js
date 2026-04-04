@@ -10,6 +10,25 @@ export default class PortfolioAbout extends LightningElement {
     @track skillCategories = [];
     @track categorizedSkills = [];
     @track isLoading = true;
+    _profileLoaded = false;
+
+    renderedCallback() {
+        if (!this._profileLoaded && this.recordId) {
+            this._profileLoaded = true;
+            getProfile({ Id: this.recordId })
+                .then(data => {
+                    if (data && data.skills) {
+                        this.skills = data.skills;
+                        this.updateCategorizedSkills();
+                        this.isLoading = false;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error loading profile:', error);
+                    this.isLoading = false;
+                });
+        }
+    }
 
     @wire(getSkillCategories)
     wiredSkillCategories({ error, data }) {
@@ -18,20 +37,6 @@ export default class PortfolioAbout extends LightningElement {
             this.updateCategorizedSkills();
         } else if (error) {
             console.error('Error loading skill categories:', error);
-        }
-    }
-
-    @wire(getProfile, { Id: '$recordId' })
-    wiredProfile({ error, data }) {
-        this.isLoading = true;
-        if (data && data.skills) {
-            this.skills = data.skills;
-            console.log('Loaded skills:', this.skills);
-            this.updateCategorizedSkills();
-            this.isLoading = false;
-        } else if (error) {
-            console.error('Error loading profile:', error);
-            this.isLoading = false;
         }
     }
 

@@ -1,4 +1,4 @@
-public with sharing class PortfolioContactDTO {
+public without sharing  class PortfolioContactDTO {
     @AuraEnabled public String name;
     @AuraEnabled public String email;
     @AuraEnabled public String message;

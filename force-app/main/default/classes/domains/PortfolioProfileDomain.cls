@@ -1,4 +1,4 @@
-public with sharing class PortfolioProfileDomain {
+public without sharing class PortfolioProfileDomain {
     public static PortfolioProfileDTO toDTO(Portfolio_Profile__c record) {
         if (record == null) return null;
 

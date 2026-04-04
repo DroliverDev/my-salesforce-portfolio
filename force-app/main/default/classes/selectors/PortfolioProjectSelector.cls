@@ -1,4 +1,4 @@
-public with sharing class PortfolioProjectSelector {
+public without sharing  class PortfolioProjectSelector {
 
     public static List<Portfolio_Project__c> getPublishedProjects(String profileId) {
         return [

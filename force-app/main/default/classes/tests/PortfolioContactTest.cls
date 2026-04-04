@@ -1,5 +1,5 @@
 @isTest
-public with sharing class PortfolioContactTest {
+public without sharing  class PortfolioContactTest {
     @TestSetup
     static void makeData(){
         Portfolio_Profile__c profile = new Portfolio_Profile__c(Name = 'Test Profile');

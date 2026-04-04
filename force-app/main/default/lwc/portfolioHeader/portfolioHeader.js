@@ -1,4 +1,4 @@
-import { LightningElement, api, wire } from 'lwc';
+import { LightningElement, api } from 'lwc';
 import MyProfileImage from '@salesforce/resourceUrl/MyProfileImage';
 import flags from '@salesforce/resourceUrl/flags';
 import getProfile from '@salesforce/apex/PortfolioProfileController.getProfile';
@@ -16,6 +16,32 @@ export default class PortfolioHeader extends LightningElement {
     @api language = 'pt';
     @api labels;
     isLoading = false;
+    isLoaded = false;
+    _profileLoaded = false;
+
+    renderedCallback() {
+        if (!this._profileLoaded && this.recordId) {
+            this._profileLoaded = true;
+            this.isLoading = true;
+            getProfile({ Id: this.recordId })
+                .then(data => {
+                    this.name = data.name;
+                    this.bio = data.bio;
+                    this.imageUrl = MyProfileImage;
+                    this.linkedinUrl = data.linkedInUrl;
+                    this.githubUrl = data.githubUrl;
+                    this.salesforceUrl = data.trailheadUrl;
+                    this.email = data.email;
+                    this.whatsappPhone = data.wppPhone;
+                    this.isLoading = false;
+                    this.isLoaded = true;
+                })
+                .catch(error => {
+                    console.error('Error loading profile:', error);
+                    this.isLoading = false;
+                });
+        }
+    }
 
     get englishFlagUrl() {
         return `${flags}/flags/flag-us.svg`;
@@ -49,27 +75,6 @@ export default class PortfolioHeader extends LightningElement {
     get whatsappUrl() {
         const digitsOnly = String(this.whatsappPhone || '').replace(/\D/g, '');
         return digitsOnly ? `https://wa.me/${digitsOnly}` : null;
-    }
-
-    @wire(getProfile, { Id: '$recordId' })
-    wiredProfile({ error, data }) {
-        this.isLoading = true;
-        if (data) {
-            console.log('Data:', data);
-            this.name = data.name;
-            this.bio = data.bio;
-            this.imageUrl = MyProfileImage;
-            this.linkedinUrl = data.linkedInUrl;
-            this.githubUrl = data.githubUrl;
-            this.salesforceUrl = data.trailheadUrl;
-            this.email = data.email;
-            this.whatsappPhone = data.wppPhone;
-            console.log('wpp: ', data.wppPhone);
-            this.isLoading = false;
-        } else if (error) {
-            console.error('Error loading profile:', error);
-            this.isLoading = false;
-        }
     }
 
     stop(event) {

@@ -1,4 +1,4 @@
-public with sharing class PortfolioProfileDTO {
+public without sharing  class PortfolioProfileDTO {
     @AuraEnabled public String name;
     @AuraEnabled public String title;
     @AuraEnabled public String bio;
