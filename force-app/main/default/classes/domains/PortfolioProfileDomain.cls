@@ -21,6 +21,7 @@ public with sharing class PortfolioProfileDomain {
             record.Profile_Image_Url__c,
             record.LinkedIn_Url__c,
             record.Github_Url__c,
+            record.Trailhead_URL__c,
             record.Email__c,
             record.Phone__c,
             record.Whatsapp_Phone__c,

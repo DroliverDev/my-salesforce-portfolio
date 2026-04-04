@@ -1,9 +1,49 @@
 <template>
     <section id="contact" class="portfolio-contact slds-p-around_medium slds-text-align_center">
         <h2>{title}</h2>
-        <p>{description}</p>
-        <div class="slds-m-top_large">
-            <a class="mailto-button" href={mailtoLink}>{buttonLabel}</a>
+
+        <div class="form-card slds-m-top_large">
+            <form class="contact-form" onsubmit={handleSubmit}>
+                <lightning-input
+                    name="name"
+                    label="Name"
+                    value={formData.name}
+                    onchange={handleInputChange}
+                    required>
+                </lightning-input>
+
+                <lightning-input
+                    type="email"
+                    name="email"
+                    label="Email"
+                    value={formData.email}
+                    onchange={handleInputChange}
+                    required>
+                </lightning-input>
+
+                <lightning-textarea
+                    name="message"
+                    label="Message"
+                    value={formData.message}
+                    onchange={handleInputChange}
+                    required>
+                </lightning-textarea>
+
+                <div class="slds-m-top_medium">
+                    <button type="submit" class="mailto-button" disabled={isSubmitting}>{submitLabel}</button>
+                </div>
+            </form>
+            <div>
+            <template if:true={feedbackMessage}>
+                <p class={feedbackClass}>{feedbackMessage}</p>
+            </template>
+            </div>
+            
+            <div class="slds-m-top_medium">
+                <p>{description}</p>
+                <a class="secondary-link" href={mailtoLink}>{buttonLabel}</a>
+            </div>
+  
         </div>
     </section>
 </template>

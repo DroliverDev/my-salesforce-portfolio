@@ -4,7 +4,9 @@ public with sharing class PortfolioContactDTO {
     @AuraEnabled public String message;
     @AuraEnabled public String status;
     @AuraEnabled public String profileId;
-    
+
+    public PortfolioContactDTO() {
+    }
 
     public PortfolioContactDTO(String name, String email, String message, String status, String profileId) {
         this.name = name;

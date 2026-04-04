@@ -26,13 +26,14 @@ public with sharing class PortfolioProfileDTO {
         }
     }
 
-    public PortfolioProfileDTO(String name, String title, String bio, String profileImageUrl, String linkedInUrl, String githubUrl, String email, String phone, String wppPhone, Double YearOfExperience, List<PortfolioSkillDTO> skills) {
+    public PortfolioProfileDTO(String name, String title, String bio, String profileImageUrl, String linkedInUrl, String githubUrl, String trailheadUrl, String email, String phone, String wppPhone, Double YearOfExperience, List<PortfolioSkillDTO> skills) {
         this.name = name;
         this.title = title;
         this.bio = bio;
         this.profileImageUrl = profileImageUrl;
         this.linkedInUrl = linkedInUrl;
         this.githubUrl = githubUrl;
+        this.trailheadUrl = trailheadUrl;
         this.email = email;
         this.phone = phone;
         this.wppPhone = wppPhone;
