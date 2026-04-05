@@ -6,8 +6,8 @@ const SITE_CONTENT = {
         },
         header: {
             nav: {
+                home: 'Início',
                 about: 'Sobre',
-                services: 'Serviços',
                 projects: 'Portfólio',
                 contact: 'Contato'
             },
@@ -36,8 +36,8 @@ const SITE_CONTENT = {
         },
         header: {
             nav: {
+                home: 'Home',
                 about: 'About',
-                services: 'Services',
                 projects: 'Portfolio',
                 contact: 'Contact'
             },

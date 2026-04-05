@@ -17,6 +17,7 @@ export default class PortfolioHeader extends LightningElement {
     @api labels;
     isLoading = false;
     isLoaded = false;
+    isMobileMenuOpen = false;
     _profileLoaded = false;
 
     renderedCallback() {
@@ -61,8 +62,8 @@ export default class PortfolioHeader extends LightningElement {
 
     get navLabels() {
         return this.labels?.nav || {
+            home: 'Início',
             about: 'Sobre',
-            services: 'Serviços',
             projects: 'Portfólio',
             contact: 'Contato'
         };
@@ -88,6 +89,7 @@ export default class PortfolioHeader extends LightningElement {
     }
 
     handleLanguageToggle() {
+        this.isMobileMenuOpen = false;
         const nextLanguage = this.language === 'pt' ? 'en' : 'pt';
         this.dispatchEvent(
             new CustomEvent('languagechange', {
@@ -98,11 +100,16 @@ export default class PortfolioHeader extends LightningElement {
 
     handleNavClick(event) {
         event.preventDefault();
+        this.isMobileMenuOpen = false;
         const section = event.currentTarget?.dataset?.section;
         this.dispatchEvent(
             new CustomEvent('navscroll', {
                 detail: { section }
             })
         );
+    }
+
+    toggleMobileMenu() {
+        this.isMobileMenuOpen = !this.isMobileMenuOpen;
     }
 }

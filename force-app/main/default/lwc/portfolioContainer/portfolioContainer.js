@@ -42,9 +42,14 @@ export default class PortfolioContainer extends LightningElement {
 
      handleNavScroll(event) {
           const section = event.detail?.section;
+
+          if (section === 'home') {
+               window.scrollTo({ top: 0, behavior: 'smooth' });
+               return;
+          }
+
           const targetSelectorBySection = {
                about: 'c-portfolio-about',
-               services: 'c-portfolio-about',
                projects: 'c-portfolio-projects',
                contact: 'c-portfolio-contact'
           };
@@ -67,8 +72,8 @@ export default class PortfolioContainer extends LightningElement {
      get headerLabels() {
           return this.content.header || {
                nav: {
+                    home: '',
                     about: '',
-                    services: '',
                     projects: '',
                     contact: ''
                }

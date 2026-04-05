@@ -1,6 +1,6 @@
 <template>
-    <section class="portfolio-header slds-p-around_medium">
-        <div class="nav slds-grid slds-m-bottom_medium">
+    <section id="home" class="portfolio-header slds-p-around_medium">
+        <div class="nav desktop-nav slds-grid slds-m-bottom_medium">
             <div class="slds-col">
                 <button class="lang-toggle slds-button slds-button_neutral" aria-label="Language toggle: English and Portuguese" onclick={handleLanguageToggle}>
                     <span class="lang-option">
@@ -11,12 +11,46 @@
             </div>
             <div class="slds-col slds-align-end nav-links">
                 <nav class="slds-p-horizontal_small">
+                    <a href="#home" data-section="home" onclick={handleNavClick} class="slds-m-right_small">{navLabels.home}</a>
                     <a href="#about" data-section="about" onclick={handleNavClick} class="slds-m-right_small">{navLabels.about}</a>
-                    <a href="#services" data-section="services" onclick={handleNavClick} class="slds-m-right_small">{navLabels.services}</a>
                     <a href="#projects" data-section="projects" onclick={handleNavClick} class="slds-m-right_small">{navLabels.projects}</a>
                     <a href="#contact" data-section="contact" onclick={handleNavClick}>{navLabels.contact}</a>
                 </nav>
             </div>
+        </div>
+
+        <div class="mobile-nav slds-m-bottom_medium">
+            <div class="mobile-nav-top">
+                <button
+                    class="mobile-menu-toggle"
+                    aria-label="Open navigation menu"
+                    aria-expanded={isMobileMenuOpen}
+                    onclick={toggleMobileMenu}
+                    type="button"
+                >
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </button>
+            </div>
+
+            <template if:true={isMobileMenuOpen}>
+                <div class="mobile-nav-panel slds-p-top_small">
+                    <button class="lang-toggle slds-button slds-button_neutral" aria-label="Language toggle: English and Portuguese" onclick={handleLanguageToggle}>
+                        <span class="lang-option">
+                            <img src={currentLanguageFlagUrl} alt={currentLanguageAlt} class="lang-flag" />
+                            <span>{languageToggleLabel}</span>
+                        </span>
+                    </button>
+
+                    <nav class="mobile-nav-links slds-p-top_small">
+                        <a href="#home" data-section="home" onclick={handleNavClick}>{navLabels.home}</a>
+                        <a href="#about" data-section="about" onclick={handleNavClick}>{navLabels.about}</a>
+                        <a href="#projects" data-section="projects" onclick={handleNavClick}>{navLabels.projects}</a>
+                        <a href="#contact" data-section="contact" onclick={handleNavClick}>{navLabels.contact}</a>
+                    </nav>
+                </div>
+            </template>
         </div>
 
         <div class="slds-grid slds-wrap slds-align_absolute-center hero">
