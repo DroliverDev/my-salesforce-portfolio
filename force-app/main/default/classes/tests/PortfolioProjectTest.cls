@@ -26,12 +26,17 @@ public class PortfolioProjectTest {
         );
         insert project;
 
+        Portfolio_Skill__c portfolioSkill = new Portfolio_Skill__c(
+            Portfolio_Profile__c = profile.Id,
+            Name = 'Apex',
+            Category__c = 'Backend',
+            Level__c = 'Advanced'
+        );
+        insert portfolioSkill;
+
         Project_Skill__c skill = new Project_Skill__c(
             Portfolio_Project__c = project.Id,
-            Portfolio_profile__c = profile.Id,
-            Name = 'Apex',
-            category__c = 'Backend',
-            level__c = 'Advanced'
+            Portfolio_Skill__c = portfolioSkill.Id
         );
         insert skill;
     }

@@ -9,12 +9,15 @@ public class PortfolioProjectDomain {
 
             if (rec.Project_Skills__r != null) {
                 for (Project_Skill__c skill : rec.Project_Skills__r) {
+                    if (skill.Portfolio_Skill__r == null) {
+                        continue;
+                    }
 
                     PortfolioProjectDTO.ProjectSkillDTO dto =
                         new PortfolioProjectDTO.ProjectSkillDTO(
-                            skill.Name,
-                            skill.Category__c,
-                            skill.Level__c
+                            skill.Portfolio_Skill__r.Name,
+                            skill.Portfolio_Skill__r.Category__c,
+                            skill.Portfolio_Skill__r.Level__c
                         );
                     skillDTOList.add(dto);
                 }
