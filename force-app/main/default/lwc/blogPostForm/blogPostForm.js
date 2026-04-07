@@ -1,9 +1,12 @@
 import { LightningElement, wire } from 'lwc';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
-import { MessageContext, publish } from 'lightning/messageService';
+import { MessageContext, publish, subscribe, APPLICATION_SCOPE } from 'lightning/messageService';
 import BlogPostChannel from '@salesforce/messageChannel/BlogPostChannel__c';
 import getTags from '@salesforce/apex/PortfolioBlogController.getTags';
+import getBlogById from '@salesforce/apex/PortfolioBlogController.getBlogById';
+import getBlogTagIds from '@salesforce/apex/PortfolioBlogController.getBlogTagIds';
 import createBlogWithTags from '@salesforce/apex/PortfolioBlogController.createBlogWithTags';
+import updateBlogWithTags from '@salesforce/apex/PortfolioBlogController.updateBlogWithTags';
 
 export default class BlogPostForm extends LightningElement {
     formData = {
@@ -23,7 +26,11 @@ export default class BlogPostForm extends LightningElement {
     tagOptions = [];
     newTagsInput = '';
     isSaving = false;
+    isLoadingEdit = false;
     isSlugManuallyEdited = false;
+    editMode = false;
+    editRecordId = null;
+    subscription = null;
 
     @wire(MessageContext)
     messageContext;
@@ -41,6 +48,70 @@ export default class BlogPostForm extends LightningElement {
         if (error) {
             this.showToast('Error', this.reduceError(error), 'error');
         }
+    }
+
+    connectedCallback() {
+        this.subscribeToChannel();
+    }
+
+    subscribeToChannel() {
+        if (this.subscription) {
+            return;
+        }
+
+        this.subscription = subscribe(
+            this.messageContext,
+            BlogPostChannel,
+            (message) => this.handleChannelMessage(message),
+            { scope: APPLICATION_SCOPE }
+        );
+    }
+
+    handleChannelMessage(message) {
+        if (message?.action === 'edit' && message?.recordId) {
+            this.loadBlogForEdit(message.recordId);
+        }
+    }
+
+    async loadBlogForEdit(recordId) {
+        this.isLoadingEdit = true;
+        try {
+            const [post, tagIds] = await Promise.all([
+                getBlogById({ recordId }),
+                getBlogTagIds({ recordId })
+            ]);
+
+            this.editMode = true;
+            this.editRecordId = recordId;
+            this.isSlugManuallyEdited = true;
+            this.formData = {
+                title: post.Name,
+                slug: post.Slug__c || '',
+                content: post.Content__c || '',
+                status: post.Status__c || 'Draft'
+            };
+            this.selectedTagIds = tagIds || [];
+            this.newTagsInput = '';
+        } catch (error) {
+            this.showToast('Error', this.reduceError(error), 'error');
+        } finally {
+            this.isLoadingEdit = false;
+        }
+    }
+
+    get cardTitle() {
+        return this.editMode ? 'Edit Blog Post' : 'New Blog Post';
+    }
+
+    get submitButtonLabel() {
+        if (this.isSaving) {
+            return this.editMode ? 'Saving...' : 'Creating...';
+        }
+        return this.editMode ? 'Update Blog Post' : 'Create Blog Post';
+    }
+
+    get isSubmitDisabled() {
+        return this.isSaving || this.isLoadingEdit;
     }
 
     handleTitleChange(event) {
@@ -107,17 +178,31 @@ export default class BlogPostForm extends LightningElement {
 
         this.isSaving = true;
         try {
-            const newPostId = await createBlogWithTags({
-                post,
-                tagIds: this.selectedTagIds,
-                newTagNames
-            });
+            if (this.editMode) {
+                post.Id = this.editRecordId;
+                await updateBlogWithTags({
+                    post,
+                    tagIds: this.selectedTagIds,
+                    newTagNames
+                });
+                publish(this.messageContext, BlogPostChannel, {
+                    action: 'blogUpdated',
+                    recordId: this.editRecordId
+                });
+                this.showToast('Success', 'Blog post updated successfully.', 'success');
+            } else {
+                const newPostId = await createBlogWithTags({
+                    post,
+                    tagIds: this.selectedTagIds,
+                    newTagNames
+                });
+                publish(this.messageContext, BlogPostChannel, {
+                    action: 'blogCreated',
+                    recordId: newPostId
+                });
+                this.showToast('Success', 'Blog post created successfully.', 'success');
+            }
 
-            publish(this.messageContext, BlogPostChannel, {
-                action: 'blogCreated',
-                recordId: newPostId
-            });
-            this.showToast('Success', 'Blog post created successfully.', 'success');
             this.resetForm();
         } catch (error) {
             this.showToast('Error', this.reduceError(error), 'error');
@@ -139,12 +224,13 @@ export default class BlogPostForm extends LightningElement {
             title: '',
             slug: '',
             content: '',
-            published: false
+            status: 'Draft'
         };
         this.selectedTagIds = [];
         this.newTagsInput = '';
         this.isSlugManuallyEdited = false;
-        this.formData = { ...this.formData, status: 'Draft' };
+        this.editMode = false;
+        this.editRecordId = null;
     }
 
     parseNewTagNames(rawValue) {

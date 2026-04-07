@@ -1,7 +1,11 @@
 <template>
-    <lightning-card title="New Blog Post" icon-name="standard:article">
+    <lightning-card title={cardTitle} icon-name="standard:article">
         <div class="slds-p-around_medium">
             <form onsubmit={handleSubmit}>
+                <template if:true={isLoadingEdit}>
+                    <lightning-spinner alternative-text="Loading post" size="small"></lightning-spinner>
+                </template>
+
                 <lightning-input
                     name="title"
                     label="Title"
@@ -61,9 +65,9 @@
                 <div class="slds-m-top_medium">
                     <lightning-button
                         variant="brand"
-                        label="Create Blog Post"
+                        label={submitButtonLabel}
                         type="submit"
-                        disabled={isSaving}>
+                        disabled={isSubmitDisabled}>
                     </lightning-button>
                 </div>
             </form>
