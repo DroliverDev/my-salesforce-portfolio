@@ -11,6 +11,7 @@ export default class PortfolioHeader extends LightningElement {
     @api githubUrl;
     @api salesforceUrl;
     @api imageUrl = MyProfileImage;
+    @api profileImage;
     @api email;
     @api whatsappPhone;
     @api language = 'pt';

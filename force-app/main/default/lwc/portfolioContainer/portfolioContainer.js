@@ -1,10 +1,14 @@
 import { LightningElement, api} from 'lwc';
 import { loadStyle } from 'lightning/platformResourceLoader';
 import FA from '@salesforce/resourceUrl/FontAwesome';
+import PORTFOLIO_IMAGES from '@salesforce/resourceUrl/PortfolioImages';
 import { getSiteContent } from 'c/siteContentUtil';
 
 export default class PortfolioContainer extends LightningElement {
      @api recordId;
+
+     profileImageUrl = `${PORTFOLIO_IMAGES}/perfil/profile.webp`;
+     projectsBaseUrl = `${PORTFOLIO_IMAGES}/projetos/`;
 
      stylesLoaded = false;
      currentLanguage = 'pt';

@@ -4,6 +4,7 @@
             record-id={recordId}
             language={currentLanguage}
             labels={headerLabels}
+            profile-image={profileImageUrl}
             onnavscroll={handleNavScroll}
             onlanguagechange={handleLanguageChange}>
         </c-portfolio-header>
@@ -14,7 +15,8 @@
         </c-portfolio-about>
         <c-portfolio-projects
             record-id={recordId}
-            title={projectLabels.title}>
+            title={projectLabels.title}
+            project-images={projectsBaseUrl}>
         </c-portfolio-projects>
         <c-portfolio-contact
             record-id={recordId}
