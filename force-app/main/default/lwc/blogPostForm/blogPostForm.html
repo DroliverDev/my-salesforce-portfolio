@@ -1,0 +1,72 @@
+<template>
+    <lightning-card title="New Blog Post" icon-name="standard:article">
+        <div class="slds-p-around_medium">
+            <form onsubmit={handleSubmit}>
+                <lightning-input
+                    name="title"
+                    label="Title"
+                    value={formData.title}
+                    onchange={handleTitleChange}
+                    required>
+                </lightning-input>
+
+                <lightning-input
+                    class="slds-m-top_small"
+                    name="slug"
+                    label="Slug"
+                    value={formData.slug}
+                    onchange={handleSlugChange}
+                    required>
+                </lightning-input>
+
+                <lightning-input-rich-text
+                    class="slds-m-top_small"
+                    label="Content"
+                    value={formData.content}
+                    onchange={handleContentChange}
+                    required>
+                </lightning-input-rich-text>
+
+                <lightning-combobox
+                    class="slds-m-top_small"
+                    name="status"
+                    label="Status"
+                    value={formData.status}
+                    options={statusOptions}
+                    onchange={handleStatusChange}>
+                </lightning-combobox>
+
+                <lightning-dual-listbox
+                    class="slds-m-top_small"
+                    name="tags"
+                    label="Tags"
+                    source-label="Available Tags"
+                    selected-label="Selected Tags"
+                    options={tagOptions}
+                    value={selectedTagIds}
+                    onchange={handleTagsChange}>
+                </lightning-dual-listbox>
+
+                <lightning-input
+                    class="slds-m-top_small"
+                    name="newTags"
+                    label="Create New Tags"
+                    value={newTagsInput}
+                    placeholder="e.g. salesforce, lwc, apex"
+                    message-when-too-long="Keep tag input under 255 characters."
+                    maxlength="255"
+                    onchange={handleNewTagsChange}>
+                </lightning-input>
+
+                <div class="slds-m-top_medium">
+                    <lightning-button
+                        variant="brand"
+                        label="Create Blog Post"
+                        type="submit"
+                        disabled={isSaving}>
+                    </lightning-button>
+                </div>
+            </form>
+        </div>
+    </lightning-card>
+</template>

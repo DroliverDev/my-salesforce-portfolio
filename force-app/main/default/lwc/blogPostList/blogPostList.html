@@ -1,0 +1,44 @@
+<template>
+    <lightning-card title="Blog Posts" icon-name="standard:article">
+        <div class="slds-p-around_medium">
+
+            <template if:true={isLoading}>
+                <lightning-spinner alternative-text="Loading posts" size="small"></lightning-spinner>
+            </template>
+
+            <template if:true={hasPosts}>
+                <ul class="slds-has-dividers_around-space">
+                    <template for:each={posts} for:item="post">
+                        <li key={post.Id} class="slds-item slds-grid slds-grid_vertical-align-center slds-p-vertical_x-small">
+                            <div class="slds-col slds-grow">
+                                <p class="slds-text-heading_small slds-m-bottom_xx-small">{post.Name}</p>
+                                <span class={post.badgeClass}>{post.statusLabel}</span>
+                            </div>
+                            <div class="slds-col slds-no-flex">
+                                <lightning-button-icon
+                                    icon-name="utility:edit"
+                                    variant="bare"
+                                    alternative-text="Edit post"
+                                    title="Edit Post"
+                                    data-id={post.Id}
+                                    onclick={handleEdit}>
+                                </lightning-button-icon>
+                            </div>
+                        </li>
+                    </template>
+                </ul>
+            </template>
+
+            <template if:true={isEmpty}>
+                <p class="slds-text-color_weak slds-text-align_center slds-p-vertical_medium">
+                    No blog posts found.
+                </p>
+            </template>
+
+            <template if:true={hasError}>
+                <p class="slds-text-color_error">{errorMessage}</p>
+            </template>
+
+        </div>
+    </lightning-card>
+</template>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Portfolio_Blog_Tag__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <label>Portfolio Blog Tag</label>
+    <referenceTo>Portfolio_Blog_Tag__c</referenceTo>
+    <relationshipLabel>Portfolio Post Tags</relationshipLabel>
+    <relationshipName>Portfolio_Post_Tags</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>
