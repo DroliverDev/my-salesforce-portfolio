@@ -66,7 +66,8 @@ export default class PortfolioHeader extends LightningElement {
             home: 'Início',
             about: 'Sobre',
             projects: 'Portfólio',
-            contact: 'Contato'
+            contact: 'Contato',
+            blog: 'Blog'
         };
     }
 

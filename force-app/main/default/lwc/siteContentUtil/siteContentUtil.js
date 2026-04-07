@@ -9,7 +9,8 @@ const SITE_CONTENT = {
                 home: 'Início',
                 about: 'Sobre',
                 projects: 'Portfólio',
-                contact: 'Contato'
+                contact: 'Contato',
+                blog: 'Blog'
             },
             contactButton: 'Fale Comigo'
         },
@@ -39,7 +40,8 @@ const SITE_CONTENT = {
                 home: 'Home',
                 about: 'About',
                 projects: 'Portfolio',
-                contact: 'Contact'
+                contact: 'Contact',
+                blog: 'Blog'
             },
             contactButton: 'Contact Me'
         },

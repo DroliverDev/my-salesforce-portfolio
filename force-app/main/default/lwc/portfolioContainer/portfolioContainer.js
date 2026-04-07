@@ -79,7 +79,8 @@ export default class PortfolioContainer extends LightningElement {
                     home: '',
                     about: '',
                     projects: '',
-                    contact: ''
+                    contact: '',
+                    blog: ''
                }
           };
      }

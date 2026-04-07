@@ -9,7 +9,8 @@
         "about": "Sobre",
         "services": "Serviços",
         "projects": "Portfólio",
-        "contact": "Contato"
+        "contact": "Contato",
+        "blog": "Blog"
       },
       "contactButton": "Fale Comigo"
     },
@@ -39,7 +40,8 @@
         "about": "About",
         "services": "Services",
         "projects": "Portfolio",
-        "contact": "Contact"
+        "contact": "Contact",
+        "blog": "Blog"
       },
       "contactButton": "Contact Me"
     },
