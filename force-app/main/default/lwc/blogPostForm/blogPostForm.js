@@ -7,14 +7,19 @@ import getBlogById from '@salesforce/apex/PortfolioBlogController.getBlogById';
 import getBlogTagIds from '@salesforce/apex/PortfolioBlogController.getBlogTagIds';
 import createBlogWithTags from '@salesforce/apex/PortfolioBlogController.createBlogWithTags';
 import updateBlogWithTags from '@salesforce/apex/PortfolioBlogController.updateBlogWithTags';
+import uploadBlogImage from '@salesforce/apex/PortfolioBlogController.uploadBlogImage';
 
 export default class BlogPostForm extends LightningElement {
     formData = {
         title: '',
         slug: '',
         content: '',
-        status: 'Draft'
+        status: 'Draft',
+        imageUrl: ''
     };
+
+    // 2 MB
+    MAX_FILE_SIZE = 2 * 1024 * 1024;
 
     statusOptions = [
         { label: 'Draft', value: 'Draft' },
@@ -27,6 +32,8 @@ export default class BlogPostForm extends LightningElement {
     newTagsInput = '';
     isSaving = false;
     isLoadingEdit = false;
+    isUploadingImage = false;
+    imagePreviewUrl = '';
     isSlugManuallyEdited = false;
     editMode = false;
     editRecordId = null;
@@ -88,10 +95,12 @@ export default class BlogPostForm extends LightningElement {
                 title: post.Name,
                 slug: post.Slug__c || '',
                 content: post.Content__c || '',
-                status: post.Status__c || 'Draft'
+                status: post.Status__c || 'Draft',
+                imageUrl: post.Image_URL__c || ''
             };
             this.selectedTagIds = tagIds || [];
             this.newTagsInput = '';
+            this.imagePreviewUrl = post.Image_URL__c || '';
         } catch (error) {
             this.showToast('Error', this.reduceError(error), 'error');
         } finally {
@@ -111,7 +120,15 @@ export default class BlogPostForm extends LightningElement {
     }
 
     get isSubmitDisabled() {
-        return this.isSaving || this.isLoadingEdit;
+        return this.isSaving || this.isLoadingEdit || this.isUploadingImage;
+    }
+
+    get hasImagePreview() {
+        return Boolean(this.imagePreviewUrl);
+    }
+
+    get isUploadDisabled() {
+        return this.isUploadingImage || this.isSaving || this.isLoadingEdit;
     }
 
     handleTitleChange(event) {
@@ -159,6 +176,56 @@ export default class BlogPostForm extends LightningElement {
         this.newTagsInput = event.target.value;
     }
 
+    handleFileChange(event) {
+        const file = event.target.files[0];
+        if (!file) {
+            return;
+        }
+
+        if (!file.type.startsWith('image/')) {
+            this.showToast('Validation Error', 'Only image files are allowed.', 'error');
+            event.target.value = '';
+            return;
+        }
+
+        if (file.size > this.MAX_FILE_SIZE) {
+            this.showToast('Validation Error', 'Image must be smaller than 2 MB.', 'error');
+            event.target.value = '';
+            return;
+        }
+
+        this.uploadImage(file);
+    }
+
+    async uploadImage(file) {
+        this.isUploadingImage = true;
+        try {
+            const base64Data = await this.readFileAsBase64(file);
+            const publicUrl = await uploadBlogImage({
+                base64Data,
+                fileName: file.name,
+                blogId: this.editRecordId || null
+            });
+
+            this.imagePreviewUrl = publicUrl;
+            this.formData = { ...this.formData, imageUrl: publicUrl };
+            this.showToast('Success', 'Image uploaded successfully.', 'success');
+        } catch (error) {
+            this.showToast('Error', this.reduceError(error), 'error');
+        } finally {
+            this.isUploadingImage = false;
+        }
+    }
+
+    readFileAsBase64(file) {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = () => reject(new Error('Failed to read file.'));
+            reader.readAsDataURL(file);
+        });
+    }
+
     async handleSubmit(event) {
         event.preventDefault();
 
@@ -171,7 +238,8 @@ export default class BlogPostForm extends LightningElement {
             Name: this.formData.title,
             Slug__c: this.formData.slug,
             Content__c: this.formData.content,
-            Status__c: this.formData.status
+            Status__c: this.formData.status,
+            Image_URL__c: this.formData.imageUrl || null
         };
 
         const newTagNames = this.parseNewTagNames(this.newTagsInput);
@@ -231,6 +299,7 @@ export default class BlogPostForm extends LightningElement {
         this.isSlugManuallyEdited = false;
         this.editMode = false;
         this.editRecordId = null;
+        this.imagePreviewUrl = '';
     }
 
     parseNewTagNames(rawValue) {

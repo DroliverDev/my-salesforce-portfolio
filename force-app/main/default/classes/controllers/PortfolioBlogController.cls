@@ -11,7 +11,7 @@ public without sharing class PortfolioBlogController {
     @AuraEnabled(cacheable=true)
     public static Portfolio_Blog_Post__c getBlogById(Id recordId) {
         List<Portfolio_Blog_Post__c> posts = [
-            SELECT Id, Name, Slug__c, Content__c, Status__c
+            SELECT Id, Name, Slug__c, Content__c, Status__c, Image_URL__c
             FROM Portfolio_Blog_Post__c
             WHERE Id = :recordId
             LIMIT 1
@@ -207,6 +207,68 @@ public without sharing class PortfolioBlogController {
             throw e;
         } catch (Exception e) {
             throw new AuraHandledException('We could not update the blog post right now. Please try again.');
+        }
+    }
+
+    @AuraEnabled
+    public static String uploadBlogImage(String base64Data, String fileName, Id blogId) {
+        try {
+            if (String.isBlank(base64Data) || String.isBlank(fileName)) {
+                throw new AuraHandledException('Image data and file name are required.');
+            }
+
+            String cleanBase64 = base64Data.contains(',')
+                ? base64Data.substringAfter(',')
+                : base64Data;
+
+            String uniqueFileName = String.valueOf(DateTime.now().getTime()) + '_' + fileName;
+
+            ContentVersion cv = new ContentVersion(
+                Title = uniqueFileName,
+                PathOnClient = uniqueFileName,
+                VersionData = EncodingUtil.base64Decode(cleanBase64),
+                IsMajorVersion = true
+            );
+            insert cv;
+
+            cv = [SELECT Id, ContentDocumentId FROM ContentVersion WHERE Id = :cv.Id LIMIT 1];
+
+            if (blogId != null) {
+                insert new ContentDocumentLink(
+                    ContentDocumentId = cv.ContentDocumentId,
+                    LinkedEntityId = blogId,
+                    ShareType = 'V',
+                    Visibility = 'AllUsers'
+                );
+            }
+
+            ContentDistribution cd = new ContentDistribution(
+                Name = uniqueFileName,
+                ContentVersionId = cv.Id,
+                PreferencesAllowViewInBrowser = true,
+                PreferencesLinkLatestVersion = true,
+                PreferencesNotifyOnVisit = false,
+                PreferencesPasswordRequired = false,
+                PreferencesAllowOriginalDownload = true
+            );
+            insert cd;
+
+            cd = [SELECT DistributionPublicUrl FROM ContentDistribution WHERE Id = :cd.Id LIMIT 1];
+
+            String publicUrl = cd.DistributionPublicUrl;
+
+            if (blogId != null) {
+                update new Portfolio_Blog_Post__c(
+                    Id = blogId,
+                    Image_URL__c = publicUrl
+                );
+            }
+
+            return publicUrl;
+        } catch (AuraHandledException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new AuraHandledException('Image upload failed. Please try again.');
         }
     }
 }
