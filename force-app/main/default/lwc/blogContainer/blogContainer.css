@@ -1,0 +1,49 @@
+.blog-shell {
+    
+    overflow: hidden;
+}
+
+.blog-body {
+    display: grid;
+    grid-template-columns: minmax(16rem, 19rem) 1fr;
+    gap: 1rem;
+    min-height: 38rem;
+    background: linear-gradient(180deg, #f8fbff 0%, #ffffff 40%);
+}
+
+.blog-sidebar-region {
+    border-right: 1px solid #d8dde6;
+    padding: 0.5rem;
+    background-color: #f3f6f9;
+}
+
+.blog-content-region {
+    padding: 1rem;
+}
+
+.view-transition {
+    animation: fadeSlideIn 220ms ease;
+}
+
+@keyframes fadeSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(0.4rem);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 64rem) {
+    .blog-body {
+        grid-template-columns: 1fr;
+        min-height: auto;
+    }
+
+    .blog-sidebar-region {
+        border-right: 0;
+        border-bottom: 1px solid #d8dde6;
+    }
+}

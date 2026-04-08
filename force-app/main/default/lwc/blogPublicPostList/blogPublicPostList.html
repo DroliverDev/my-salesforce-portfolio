@@ -1,0 +1,41 @@
+<template>
+    <section>
+        <template if:true={isLoading}>
+            <div class="slds-p-around_large slds-align_absolute-center">
+                <lightning-spinner alternative-text="Loading posts" size="small"></lightning-spinner>
+            </div>
+        </template>
+
+        <template if:false={isLoading}>
+            <template if:true={hasPosts}>
+                <div class="slds-grid slds-wrap slds-gutters_small">
+                    <template for:each={visiblePosts} for:item="post">
+                        <div key={post.id} class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-3 slds-m-bottom_small">
+                            <c-blog-post-card post={post} oncardclick={handleCardClick}></c-blog-post-card>
+                        </div>
+                    </template>
+                </div>
+
+                <template if:true={canLoadMore}>
+                    <div class="slds-text-align_center slds-m-top_medium">
+                        <lightning-button
+                            variant="neutral"
+                            label="Load more"
+                            onclick={handleLoadMore}>
+                        </lightning-button>
+                    </div>
+                </template>
+            </template>
+
+            <template if:true={isEmpty}>
+                <div class="empty-state slds-p-around_large slds-text-align_center">
+                    <lightning-icon icon-name="utility:search" alternative-text="No posts" size="small"></lightning-icon>
+                    <p class="slds-text-heading_small slds-m-top_small">No posts found</p>
+                    <p class="slds-text-body_regular slds-text-color_weak slds-m-top_x-small">
+                        Try changing category, tags, or search keywords.
+                    </p>
+                </div>
+            </template>
+        </template>
+    </section>
+</template>

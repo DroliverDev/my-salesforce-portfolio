@@ -1,0 +1,47 @@
+<template>
+    <section class="blog-shell slds-card">
+        <c-blog-header
+            categories={categories}
+            selected-category={selectedCategory}
+            oncategorychange={handleCategoryChange}>
+        </c-blog-header>
+
+        <div class="blog-body">
+            <aside class="blog-sidebar-region">
+                <c-blog-sidebar
+                    tags={allTags}
+                    selected-tags={selectedTags}
+                    search-term={searchTerm}
+                    ontagchange={handleTagChange}
+                    onsearchchange={handleSearchChange}>
+                </c-blog-sidebar>
+            </aside>
+
+            <main class="blog-content-region" aria-live="polite">
+                <template if:true={isLoading}>
+                    <div class="slds-p-around_large slds-align_absolute-center">
+                        <lightning-spinner alternative-text="Loading blog posts" size="medium"></lightning-spinner>
+                    </div>
+                </template>
+
+                <template if:false={isLoading}>
+                    <template if:true={showDetail}>
+                        <section class="view-transition">
+                            <c-blog-post-detail post={selectedPost} onback={handleBackToList}></c-blog-post-detail>
+                        </section>
+                    </template>
+
+                    <template if:false={showDetail}>
+                        <section class="view-transition">
+                            <c-blog-public-post-list
+                                posts={filteredPosts}
+                                is-loading={isLoading}
+                                onpostselect={handlePostSelect}>
+                            </c-blog-public-post-list>
+                        </section>
+                    </template>
+                </template>
+            </main>
+        </div>
+    </section>
+</template>

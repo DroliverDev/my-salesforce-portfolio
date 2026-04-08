@@ -1,0 +1,136 @@
+:host {
+    --primary-blue: #2563eb;
+}
+
+.blog-header {
+    background: var(--primary-blue);
+    color: #ffffff;
+}
+
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.mobile-nav {
+    display: none;
+}
+
+.mobile-nav-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.mobile-menu-toggle {
+    width: 44px;
+    height: 44px;
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
+    background: transparent;
+    cursor: pointer;
+}
+
+.mobile-menu-toggle .bar {
+    width: 22px;
+    height: 2px;
+    background: #ffffff;
+    border-radius: 999px;
+}
+
+.mobile-nav-panel {
+    display: grid;
+    gap: 0.5rem;
+}
+
+.mobile-nav-links {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.5rem 0.75rem;
+}
+
+.brand-eyebrow {
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 0.25rem;
+}
+
+.title {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.mobile-title {
+    margin-top: 0.5rem;
+}
+
+.nav-links {
+    margin-left: auto;
+}
+
+.nav-links nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 0.5rem;
+}
+
+.nav-link-button {
+    color: #ffffff;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 0.35rem 0.75rem;
+    cursor: pointer;
+}
+
+.mobile-link-button {
+    color: #ffffff;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 1rem;
+    text-align: center;
+    padding: 0.35rem 0.5rem;
+    cursor: pointer;
+}
+
+.nav-link-button:hover,
+.nav-link-button:focus,
+.mobile-link-button:hover,
+.mobile-link-button:focus {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.is-active {
+    background: #ffffff;
+    color: var(--primary-blue);
+    border-color: #ffffff;
+}
+
+@media (max-width: 600px) {
+    .desktop-nav {
+        display: none;
+    }
+
+    .mobile-nav {
+        display: block;
+    }
+
+    .title {
+        font-size: 1.2rem;
+    }
+}

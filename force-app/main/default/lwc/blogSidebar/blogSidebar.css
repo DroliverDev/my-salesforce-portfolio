@@ -1,0 +1,19 @@
+.sidebar {
+    width: 100%;
+    background: #ffffff;
+    border: 1px solid #d8dde6;
+    border-radius: 0.5rem;
+    padding: 0.75rem;
+    transition: max-height 220ms ease, box-shadow 220ms ease;
+}
+
+.sidebar-collapsed {
+    max-height: 3rem;
+    overflow: hidden;
+}
+
+@media (max-width: 48rem) {
+    .sidebar {
+        margin-bottom: 0.5rem;
+    }
+}

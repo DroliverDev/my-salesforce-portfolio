@@ -5,13 +5,7 @@
     <targets>
         <target>lightning__AppPage</target>
         <target>lightning__HomePage</target>
-        <target>lightning__RecordPage</target>
         <target>lightningCommunity__Page</target>
         <target>lightningCommunity__Default</target>
     </targets>
-    <targetConfigs>
-        <targetConfig targets="lightningCommunity__Default">
-            <property name="recordId" type="String" label="Profile Record Id"/>
-        </targetConfig>
-    </targetConfigs>
 </LightningComponentBundle>

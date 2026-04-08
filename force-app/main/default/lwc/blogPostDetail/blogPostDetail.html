@@ -1,0 +1,31 @@
+<template>
+    <template if:true={hasPost}>
+        <article class="detail-card slds-p-around_large">
+            <lightning-button
+                variant="base"
+                icon-name="utility:back"
+                icon-position="left"
+                label="Back to posts"
+                onclick={handleBack}>
+            </lightning-button>
+
+            <img class="detail-image slds-m-top_medium" src={resolvedImageUrl} alt={post.title} loading="lazy" />
+
+            <p class="slds-text-title_caps slds-m-top_medium category">{post.category}</p>
+            <h2 class="slds-text-heading_large slds-m-top_x-small">{post.title}</h2>
+            <p class="slds-text-body_regular slds-m-top_small intro">{post.description}</p>
+
+            <div class="slds-m-top_small slds-grid slds-wrap">
+                <template for:each={post.tags} for:item="tag">
+                    <lightning-badge key={tag} class="slds-m-right_x-small slds-m-bottom_x-small" label={tag}></lightning-badge>
+                </template>
+            </div>
+
+            <div class="slds-m-top_medium content-block">
+                <template for:each={contentParagraphs} for:item="paragraph">
+                    <p key={paragraph} class="slds-m-bottom_small">{paragraph}</p>
+                </template>
+            </div>
+        </article>
+    </template>
+</template>

@@ -1,0 +1,60 @@
+<template>
+    <header class="blog-header slds-p-around_medium">
+        <div class="nav desktop-nav slds-grid slds-grid_vertical-align-center slds-m-bottom_small">
+            <div class="slds-col">
+                <p class="brand-eyebrow">Portfolio Blog</p>
+                <h1 class="title">Insights on Salesforce, Tech, and Career</h1>
+            </div>
+
+            <div class="slds-col slds-align-end nav-links">
+                <nav class="slds-p-horizontal_small" aria-label="Blog categories">
+                    <template for:each={categoryItems} for:item="item">
+                        <button
+                            key={item.name}
+                            class={item.desktopClass}
+                            data-category={item.name}
+                            onclick={handleCategoryClick}
+                            type="button">
+                            {item.name}
+                        </button>
+                    </template>
+                </nav>
+            </div>
+        </div>
+
+        <div class="mobile-nav">
+            <div class="mobile-nav-top">
+                <p class="brand-eyebrow">Portfolio Blog</p>
+                <button
+                    class="mobile-menu-toggle"
+                    aria-label="Open blog categories menu"
+                    aria-expanded={isMobileMenuOpen}
+                    onclick={toggleMobileMenu}
+                    type="button">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </button>
+            </div>
+
+            <h1 class="title mobile-title">Insights on Salesforce, Tech, and Career</h1>
+
+            <template if:true={isMobileMenuOpen}>
+                <div class="mobile-nav-panel slds-p-top_small">
+                    <nav class="mobile-nav-links" aria-label="Blog categories">
+                        <template for:each={categoryItems} for:item="item">
+                            <button
+                                key={item.name}
+                                class={item.mobileClass}
+                                data-category={item.name}
+                                onclick={handleCategoryClick}
+                                type="button">
+                                {item.name}
+                            </button>
+                        </template>
+                    </nav>
+                </div>
+            </template>
+        </div>
+    </header>
+</template>

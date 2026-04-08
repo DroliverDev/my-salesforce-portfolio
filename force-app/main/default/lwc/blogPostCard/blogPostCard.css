@@ -1,0 +1,31 @@
+.card {
+    background: #ffffff;
+    border: 1px solid #d8dde6;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 180ms ease, box-shadow 180ms ease;
+    min-height: 100%;
+}
+
+.card:hover,
+.card:focus {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 22px rgba(21, 45, 70, 0.15);
+    outline: none;
+}
+
+.card-image {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    display: block;
+}
+
+.category {
+    color: #0176d3;
+}
+
+.description {
+    color: #3e3e3c;
+}
