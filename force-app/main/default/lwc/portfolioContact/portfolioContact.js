@@ -11,6 +11,8 @@ export default class PortfolioContact extends LightningElement {
     isSubmitting = false;
     feedbackMessage = '';
     feedbackType = '';
+    _revealInitialized = false;
+    revealObserver;
 
     formData = {
         name: '',
@@ -20,6 +22,16 @@ export default class PortfolioContact extends LightningElement {
 
     get submitLabel() {
         return this.isSubmitting ? 'Sending...' : 'Send Message';
+    }
+
+    renderedCallback() {
+        this.initializeRevealMotion();
+    }
+
+    disconnectedCallback() {
+        if (this.revealObserver) {
+            this.revealObserver.disconnect();
+        }
     }
 
     get feedbackClass() {
@@ -66,5 +78,39 @@ export default class PortfolioContact extends LightningElement {
 
     get mailtoLink() {
         return `mailto:${this.email || ''}?subject=${encodeURIComponent(this.emailSubject)}`;
+    }
+
+    initializeRevealMotion() {
+        if (this._revealInitialized) {
+            return;
+        }
+
+        const section = this.template.querySelector('.reveal-section');
+        if (!section) {
+            return;
+        }
+
+        this._revealInitialized = true;
+
+        if (typeof IntersectionObserver === 'undefined') {
+            section.classList.add('is-visible');
+            return;
+        }
+
+        this.revealObserver = new IntersectionObserver(
+            entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        this.revealObserver.unobserve(entry.target);
+                    }
+                });
+            },
+            {
+                threshold: 0.2
+            }
+        );
+
+        this.revealObserver.observe(section);
     }
 }

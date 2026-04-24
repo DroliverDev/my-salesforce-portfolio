@@ -1,91 +1,92 @@
 <template>
     <section id="home" class="portfolio-header slds-p-around_medium">
-        <div class="nav desktop-nav slds-grid slds-m-bottom_medium">
-            <div class="slds-col">
-                <button class="lang-toggle slds-button slds-button_neutral" aria-label="Language toggle: English and Portuguese" onclick={handleLanguageToggle}>
-                    <span class="lang-option">
-                        <img src={currentLanguageFlagUrl} alt={currentLanguageAlt} class="lang-flag" />
-                        <span>{languageToggleLabel}</span>
-                    </span>
-                </button>
-            </div>
-            <div class="slds-col slds-align-end nav-links">
-                <nav class="slds-p-horizontal_small">
-                    <a href="#home" data-section="home" onclick={handleNavClick} class="slds-m-right_small">{navLabels.home}</a>
-                    <a href="#about" data-section="about" onclick={handleNavClick} class="slds-m-right_small">{navLabels.about}</a>
-                    <a href="#projects" data-section="projects" onclick={handleNavClick} class="slds-m-right_small">{navLabels.projects}</a>
-                    <a href="#contact" data-section="contact" onclick={handleNavClick} class="slds-m-right_small">{navLabels.contact}</a>
-                    <a href="/blog" class="slds-m-right_small">{navLabels.blog}</a>
-                </nav>
-            </div>
-        </div>
+        <div class="header-shell">
+            <div class="header-backdrop"></div>
 
-        <div class="mobile-nav slds-m-bottom_medium">
-            <div class="mobile-nav-top">
-                <button
-                    class="mobile-menu-toggle"
-                    aria-label="Open navigation menu"
-                    aria-expanded={isMobileMenuOpen}
-                    onclick={toggleMobileMenu}
-                    type="button"
-                >
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                </button>
-            </div>
-
-            <template if:true={isMobileMenuOpen}>
-                <div class="mobile-nav-panel slds-p-top_small">
+            <div class="nav desktop-nav slds-grid slds-m-bottom_medium">
+                <div class="slds-col">
                     <button class="lang-toggle slds-button slds-button_neutral" aria-label="Language toggle: English and Portuguese" onclick={handleLanguageToggle}>
                         <span class="lang-option">
                             <img src={currentLanguageFlagUrl} alt={currentLanguageAlt} class="lang-flag" />
                             <span>{languageToggleLabel}</span>
                         </span>
                     </button>
-
-                    <nav class="mobile-nav-links slds-p-top_small">
-                        <a href="#home" data-section="home" onclick={handleNavClick}>{navLabels.home}</a>
-                        <a href="#about" data-section="about" onclick={handleNavClick}>{navLabels.about}</a>
-                        <a href="#projects" data-section="projects" onclick={handleNavClick}>{navLabels.projects}</a>
-                        <a href="#contact" data-section="contact" onclick={handleNavClick}>{navLabels.contact}</a>
-                        <a href="/blog">{navLabels.blog}</a>
-                    </nav>
                 </div>
-            </template>
-        </div>
-
-        <div class="slds-grid slds-wrap slds-align_absolute-center hero">
-            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 image-col">
-                <div class="profile-image" role="img" aria-label="Profile image">
-                    <img src={profileImage} alt="Profile" class="profile-img" />
+                <div class="slds-col slds-align-end nav-links">
+                    <nav class="slds-p-horizontal_small">
+                        <a href="#home" data-section="home" onclick={handleNavClick} class="nav-link slds-m-right_small">{navLabels.home}</a>
+                        <a href="#about" data-section="about" onclick={handleNavClick} class="nav-link slds-m-right_small">{navLabels.about}</a>
+                        <a href="#projects" data-section="projects" onclick={handleNavClick} class="nav-link slds-m-right_small">{navLabels.projects}</a>
+                        <a href="#contact" data-section="contact" onclick={handleNavClick} class="nav-link slds-m-right_small">{navLabels.contact}</a>
+                        <a href="/blog" class="nav-link slds-m-right_small">{navLabels.blog}</a>
+                    </nav>
                 </div>
             </div>
 
-            <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-3 hero-body">
-                <h1 class="name">{name}</h1>
-                <p class="bio">{bio}</p>
-
-                <div class="socials slds-m-vertical_small">
-                    <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" class="slds-m-left_x-small" title="Whatsapp" onclick={stop}>
-                        <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
-                    </a>
-                    <a href='https://www.linkedin.com/in/reisdaniele' target="_blank" rel="noopener noreferrer" class="slds-m-left_x-small" title="LinkedIn" onclick={stop}>
-                         
-                        <i class="fa-brands fa-linkedin" aria-hidden="true"></i>
-                    </a>
-                    <a href={githubUrl} target="_blank" rel="noopener noreferrer" class="slds-m-left_x-small" title="GitHub" onclick={stop}>
-
-                        <i class="fa-brands fa-github" aria-hidden="true"></i>
-                    </a>
-                    <a href={salesforceUrl} target="_blank" rel="noopener noreferrer" class="slds-m-left_x-small" title="Salesforce" onclick={stop}>
-                        <i class="fa-brands fa-salesforce" aria-hidden="true"></i>
-                    </a>
+            <div class="mobile-nav slds-m-bottom_medium">
+                <div class="mobile-nav-top">
+                    <button
+                        class="mobile-menu-toggle"
+                        aria-label="Open navigation menu"
+                        aria-expanded={isMobileMenuOpen}
+                        onclick={toggleMobileMenu}
+                        type="button"
+                    >
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                    </button>
                 </div>
 
-                <!-- <div class="slds-m-top_medium">
-                    <button class="contact-button slds-button" onclick={handleContactClick}>Fale Comigo</button>
-                </div> -->
+                <template if:true={isMobileMenuOpen}>
+                    <div class="mobile-nav-panel slds-p-top_small">
+                        <button class="lang-toggle slds-button slds-button_neutral" aria-label="Language toggle: English and Portuguese" onclick={handleLanguageToggle}>
+                            <span class="lang-option">
+                                <img src={currentLanguageFlagUrl} alt={currentLanguageAlt} class="lang-flag" />
+                                <span>{languageToggleLabel}</span>
+                            </span>
+                        </button>
+
+                        <nav class="mobile-nav-links slds-p-top_small">
+                            <a href="#home" data-section="home" onclick={handleNavClick}>{navLabels.home}</a>
+                            <a href="#about" data-section="about" onclick={handleNavClick}>{navLabels.about}</a>
+                            <a href="#projects" data-section="projects" onclick={handleNavClick}>{navLabels.projects}</a>
+                            <a href="#contact" data-section="contact" onclick={handleNavClick}>{navLabels.contact}</a>
+                            <a href="/blog">{navLabels.blog}</a>
+                        </nav>
+                    </div>
+                </template>
+            </div>
+
+            <div class="hero reveal-section">
+                <div class="slds-grid slds-wrap slds-align_absolute-center hero-content">
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 image-col">
+                        <div class="profile-image" role="img" aria-label="Profile image">
+                            <img src={profileImage} alt="Profile" class="profile-img" />
+                        </div>
+                    </div>
+
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-3 hero-body">
+                        <p class="hero-kicker">Salesforce Developer</p>
+                        <h1 class="name">{name}</h1>
+                        <p class="bio">{bio}</p>
+
+                        <div class="socials slds-m-vertical_small">
+                            <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" class="social-link slds-m-left_x-small" title="Whatsapp" onclick={stop}>
+                                <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+                            </a>
+                            <a href='https://www.linkedin.com/in/reisdaniele' target="_blank" rel="noopener noreferrer" class="social-link slds-m-left_x-small" title="LinkedIn" onclick={stop}>
+                                <i class="fa-brands fa-linkedin" aria-hidden="true"></i>
+                            </a>
+                            <a href={githubUrl} target="_blank" rel="noopener noreferrer" class="social-link slds-m-left_x-small" title="GitHub" onclick={stop}>
+                                <i class="fa-brands fa-github" aria-hidden="true"></i>
+                            </a>
+                            <a href={salesforceUrl} target="_blank" rel="noopener noreferrer" class="social-link slds-m-left_x-small" title="Salesforce" onclick={stop}>
+                                <i class="fa-brands fa-salesforce" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>

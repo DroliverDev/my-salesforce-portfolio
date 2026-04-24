@@ -1,7 +1,62 @@
 :host {
-    --primary-blue: #2563eb;
+    display: block;
+    --text-primary: #f8fafc;
+    --text-secondary: #9fb0cb;
+    --accent: #2dd4bf;
+    --font-display: 'Sora', 'Poppins', 'Segoe UI', sans-serif;
+    --font-body: 'Manrope', 'Poppins', 'Segoe UI', sans-serif;
 }
 
-.portfolio-projects .title { font-size: 1.5rem; color: var(--primary-blue); font-weight: 700; }
+.portfolio-projects {
+    padding: 2.8rem 1rem;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.65s ease, transform 0.65s ease;
+}
 
-.project-grid { align-items: stretch; }
+.portfolio-projects.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.section-shell {
+    max-width: 1180px;
+    margin: 0 auto;
+}
+
+.heading-block {
+    max-width: 680px;
+    margin: 0 auto;
+}
+
+.section-kicker {
+    margin: 0;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 0.76rem;
+}
+
+.portfolio-projects .title {
+    margin: 0.55rem 0 0;
+    font-size: clamp(1.55rem, 3vw, 2.2rem);
+    color: var(--text-primary);
+    font-weight: 700;
+    font-family: var(--font-display);
+}
+
+.project-grid {
+    align-items: stretch;
+}
+
+@media (max-width: 768px) {
+    .portfolio-projects {
+        padding: 2.1rem 0.95rem;
+    }
+
+    .project-col {
+        padding: 0.5rem 0;
+    }
+}

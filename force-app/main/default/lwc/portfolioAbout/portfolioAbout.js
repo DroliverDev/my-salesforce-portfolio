@@ -11,6 +11,8 @@ export default class PortfolioAbout extends LightningElement {
     @track categorizedSkills = [];
     @track isLoading = true;
     _profileLoaded = false;
+    _revealInitialized = false;
+    revealObserver;
 
     renderedCallback() {
         if (!this._profileLoaded && this.recordId) {
@@ -27,6 +29,14 @@ export default class PortfolioAbout extends LightningElement {
                     console.error('Error loading profile:', error);
                     this.isLoading = false;
                 });
+        }
+
+        this.initializeRevealMotion();
+    }
+
+    disconnectedCallback() {
+        if (this.revealObserver) {
+            this.revealObserver.disconnect();
         }
     }
 
@@ -91,5 +101,39 @@ export default class PortfolioAbout extends LightningElement {
 
         const numeric = Number(level);
         return Number.isNaN(numeric) ? 0 : numeric;
+    }
+
+    initializeRevealMotion() {
+        if (this._revealInitialized) {
+            return;
+        }
+
+        const section = this.template.querySelector('.reveal-section');
+        if (!section) {
+            return;
+        }
+
+        this._revealInitialized = true;
+
+        if (typeof IntersectionObserver === 'undefined') {
+            section.classList.add('is-visible');
+            return;
+        }
+
+        this.revealObserver = new IntersectionObserver(
+            entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        this.revealObserver.unobserve(entry.target);
+                    }
+                });
+            },
+            {
+                threshold: 0.16
+            }
+        );
+
+        this.revealObserver.observe(section);
     }
 }

@@ -1,32 +1,39 @@
 <template>
-    <section id="about" class="portfolio-about slds-p-around_medium slds-text-align_center">
-        <h2 class="title">{title}</h2>
-        <p class="desc">{description}</p>
-
-        <template if:true={isLoading}>
-            <div class="loading-spinner slds-m-top_large">
-                <lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+    <section id="about" class="portfolio-about slds-p-around_medium slds-text-align_center reveal-section">
+        <div class="section-shell">
+            <div class="heading-block">
+                <p class="section-kicker">Capabilities</p>
+                <h2 class="title">{title}</h2>
+                <p class="desc">{description}</p>
             </div>
-        </template>
 
-        <template if:false={isLoading}>
-            <div class="slds-grid slds-wrap slds-m-top_large cards">
-                <template for:each={categorizedSkills} for:item="categoryItem">
-                    <div key={categoryItem.name} class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-p-around_small">
-                        <article class="skill-card">
-                            <h3>{categoryItem.name}</h3>
-                            <ul>
-                                <template for:each={categoryItem.skills} for:item="skill">
-                                    <li key={skill.name} class="skill-item">
-                                        <span class="skill-name">{skill.name}</span>
-                                        <c-signal-strength level={skill.level}></c-signal-strength>
-                                    </li>
-                                </template>
-                            </ul>
-                        </article>
-                    </div>
-                </template>
-            </div>
-        </template>
+            <template if:true={isLoading}>
+                <div class="loading-spinner slds-m-top_large">
+                    <lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+                </div>
+            </template>
+
+            <template if:false={isLoading}>
+                <div class="slds-grid slds-wrap slds-m-top_large cards">
+                    <template for:each={categorizedSkills} for:item="categoryItem">
+                        <div key={categoryItem.name} class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-p-around_small skill-col">
+                            <article class="skill-card">
+                                <h3 class="skill-category">{categoryItem.name}</h3>
+                                <ul>
+                                    <template for:each={categoryItem.skills} for:item="skill">
+                                        <li key={skill.name} class="skill-item">
+                                            <span class="skill-name">{skill.name}</span>
+                                            <span class="skill-level-icon">
+                                                <c-signal-strength level={skill.level}></c-signal-strength>
+                                            </span>
+                                        </li>
+                                    </template>
+                                </ul>
+                            </article>
+                        </div>
+                    </template>
+                </div>
+            </template>
+        </div>
     </section>
 </template>

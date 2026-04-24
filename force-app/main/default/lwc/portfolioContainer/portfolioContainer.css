@@ -1,0 +1,41 @@
+:host {
+    display: block;
+    --site-bg: #060b16;
+    --site-bg-soft: #0f172a;
+    --surface: #111c31;
+    --surface-2: #13233f;
+    --text-primary: #f8fafc;
+    --text-secondary: #a8b5cc;
+    --accent: #2dd4bf;
+    --accent-strong: #14b8a6;
+    --stroke: rgba(148, 163, 184, 0.22);
+    --shadow-xl: 0 24px 60px rgba(2, 8, 23, 0.5);
+    --radius-lg: 18px;
+    --content-max: 1180px;
+    --font-display: 'Sora', 'Poppins', 'Segoe UI', sans-serif;
+    --font-body: 'Manrope', 'Poppins', 'Segoe UI', sans-serif;
+    background:
+        radial-gradient(circle at 12% 8%, rgba(45, 212, 191, 0.17), transparent 35%),
+        radial-gradient(circle at 86% 16%, rgba(59, 130, 246, 0.18), transparent 35%),
+        linear-gradient(180deg, #050912 0%, #0a1324 45%, #0a1120 100%);
+    color: var(--text-primary);
+    min-height: 100vh;
+}
+
+.portfolio-shell {
+    position: relative;
+    overflow: hidden;
+}
+
+.portfolio-shell > c-portfolio-header,
+.portfolio-shell > c-portfolio-about,
+.portfolio-shell > c-portfolio-projects,
+.portfolio-shell > c-portfolio-contact {
+    display: block;
+}
+
+@media (max-width: 768px) {
+    :host {
+        --radius-lg: 16px;
+    }
+}

@@ -1,13 +1,18 @@
 <template>
-    <section id="projects" class="portfolio-projects slds-p-around_medium slds-text-align_center">
-        <h2 class="title">{title}</h2>
+    <section id="projects" class="portfolio-projects slds-p-around_medium slds-text-align_center reveal-section">
+        <div class="section-shell">
+            <div class="heading-block">
+                <p class="section-kicker">Portfolio</p>
+                <h2 class="title">{title}</h2>
+            </div>
 
-        <div class="slds-grid slds-wrap slds-m-top_large project-grid">
-            <template for:each={projectsWithImages} for:item="proj">
-                <div key={proj.id} class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-p-around_small">
-                    <c-portfolio-project-card project-name={proj.name} description={proj.description} image-url={proj.imageUrl} code-url={proj.codeUrl}></c-portfolio-project-card>
-                </div>
-            </template>
+            <div class="slds-grid slds-wrap slds-m-top_large project-grid">
+                <template for:each={projectsWithImages} for:item="proj">
+                    <div key={proj.id} class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-p-around_small project-col">
+                        <c-portfolio-project-card project-name={proj.name} description={proj.description} image-url={proj.imageUrl} code-url={proj.codeUrl}></c-portfolio-project-card>
+                    </div>
+                </template>
+            </div>
         </div>
     </section>
 </template>

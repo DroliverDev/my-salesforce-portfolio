@@ -8,6 +8,18 @@ export default class PortfolioProjects extends LightningElement {
 
     projects = [];
     error;
+    _revealInitialized = false;
+    revealObserver;
+
+    renderedCallback() {
+        this.initializeRevealMotion();
+    }
+
+    disconnectedCallback() {
+        if (this.revealObserver) {
+            this.revealObserver.disconnect();
+        }
+    }
 
     @wire(getProjects, { ProfileId: '$recordId' })
     wiredProjects({ data, error }) {
@@ -31,5 +43,39 @@ export default class PortfolioProjects extends LightningElement {
                 : null,
             codeUrl: project.githubUrl || project.liveDemoUrl || '#'
         }));
+    }
+
+    initializeRevealMotion() {
+        if (this._revealInitialized) {
+            return;
+        }
+
+        const section = this.template.querySelector('.reveal-section');
+        if (!section) {
+            return;
+        }
+
+        this._revealInitialized = true;
+
+        if (typeof IntersectionObserver === 'undefined') {
+            section.classList.add('is-visible');
+            return;
+        }
+
+        this.revealObserver = new IntersectionObserver(
+            entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        this.revealObserver.unobserve(entry.target);
+                    }
+                });
+            },
+            {
+                threshold: 0.18
+            }
+        );
+
+        this.revealObserver.observe(section);
     }
 }
